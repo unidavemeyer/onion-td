@@ -3,6 +3,7 @@
 
 * Groundwork
     * Meetings - start, end, others? Text comms, via what channel?
+    * Initial paperwork bits - orientation, planning checklist - do we have this from Tony?
     * Can we create Teams channel with davidm as guest?
     * Alt: phone text for attention
     * Use of AI - suggest no; require human explain/review; who owns code?
