@@ -1,5 +1,38 @@
 # Planning
 
+* Approximate flow
+    * Phase 1 - fixed tower, fixed enemy, verify tower attack works, enemies can be damaged
+        * Initial map setup
+            * add/remove of child scenes
+            * possibly also instantiate
+        * Initial tower setup
+        * Initial mob setup
+        * General object finding, interfaces, etc.
+        * General organization in Godot
+            * area 2d may be helpful
+    * Phase 2 - moving enemy, single, fixed tower, verify behaviors
+        * Moving mob setup
+        * Add second/nth fixed towers for additional testing
+    * Phase 3 - player ability to place towers (zero cost, debug)
+        * Initial UI setup
+    * Phase 4 - wave of enemy setup (timing, groups)
+    * Phase 5 - currency and life
+
+* Action steps
+    * Work on a basic enemy
+        * once converted to 4.7.2 set up PR and do review
+    * Work on a basic tower
+        * use a direct call on an enemy to take damage
+    * Work on a basic map
+        * should define entries and exits for mobs
+
+* Forward looking
+    * Random ideas from mentor
+        * perhaps with the kitchen/food idea: instead of losing life we gain pounds if something gets through
+        * riffing on that idea, perhaps we could also add a way to lose pounds again - treadmill? doesn't quite fit the theme though
+        * perhaps food goes either to compost or to be eaten - may form an interesting model for damge (can still be hp on mobs internally)
+
+# Progress 2026-10-15
 
 * Groundwork
     * Meetings - start, end, others? Text comms, via what channel?
@@ -10,6 +43,7 @@
         * Future: Create channel in Teams - can we invite guest?
     * Initial paperwork bits - orientation, planning checklist - do we have this from Tony?
         * Tabled until we have the documents from Tony
+        * Got documents during day, went through in afternoon session
     * Alt: phone text for attention
         * done
     * Use of AI - suggest no; require human explain/review; who owns code?
@@ -97,24 +131,6 @@
     * Stretch goal? Playable hero for instant impact
     * Instant abilities for players
 
-* Approximate flow
-    * Phase 1 - fixed tower, fixed enemy, verify tower attack works, enemies can be damaged
-        * Initial map setup
-            * add/remove of child scenes
-            * possibly also instantiate
-        * Initial tower setup
-        * Initial mob setup
-        * General object finding, interfaces, etc.
-        * General organization in Godot
-            * area 2d may be helpful
-    * Phase 2 - moving enemy, single, fixed tower, verify behaviors
-        * Moving mob setup
-        * Add second/nth fixed towers for additional testing
-    * Phase 3 - player ability to place towers (zero cost, debug)
-        * Initial UI setup
-    * Phase 4 - wave of enemy setup (timing, groups)
-    * Phase 5 - currency and life
-
 * Action steps
     * Consider ideas for theme for discussion in the afternoon
         * kitchen under attack by baked goods
@@ -128,22 +144,10 @@
         * freezing could happen more effectively against soggy
     * Get everyone as a contributor to the github project
         * done
-    * Get basic main scene with subfolder nodes in place
-        * mentor to do this
-        * do as feature branch and do review of PR at start of next work day
     * Work on a basic enemy
         * in progress on this - area2d + damage = done, but older version
         * do not use Godot signals here - the broadcast model doesn't make sense here
         * consider that indicating damage is a structure, not a number
-        * once converted to 4.7.2 set up PR and do review
-    * Work on a basic tower
-        * use a direct call on an enemy to take damage
-    * Work on a basic map
-        * should define entries and exits for mobs
-
-* Forward looking
-    * Random ideas from mentor
-        * perhaps with the kitchen/food idea: instead of losing life we gain pounds if something gets through
-        * riffing on that idea, perhaps we could also add a way to lose pounds again - treadmill? doesn't quite fit the theme though
-        * perhaps food goes either to compost or to be eaten - may form an interesting model for damge (can still be hp on mobs internally)
-
+    * Get basic main scene with subfolder nodes in place
+        * mentor to do this
+        * do as feature branch and do review of PR at start of next work day
