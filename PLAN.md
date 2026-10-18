@@ -117,12 +117,33 @@
 
 * Action steps
     * Consider ideas for theme for discussion in the afternoon
+        * kitchen under attack by baked goods
+        * other foods & utensils & pots & pans are the defenders
+        * soup pot that splashes with soup - area damage
+        * bread enemy - falls into multiple slices
+        * toasted status, baking as something
+        * fire damage
+        * soaking/wet as an effect - slows them down
+        * wet = less durable, damage multiplier effect
+        * freezing could happen more effectively against soggy
     * Get everyone as a contributor to the github project
+        * done
     * Get basic main scene with subfolder nodes in place
+        * mentor to do this
+        * do as feature branch and do review of PR at start of next work day
     * Work on a basic enemy
-    * Work on a basic tower
-        * use a direct call on an enemy to take damage
+        * in progress on this - area2d + damage = done, but older version
         * do not use Godot signals here - the broadcast model doesn't make sense here
         * consider that indicating damage is a structure, not a number
+        * once converted to 4.7.2 set up PR and do review
+    * Work on a basic tower
+        * use a direct call on an enemy to take damage
     * Work on a basic map
         * should define entries and exits for mobs
+
+* Forward looking
+    * Random ideas from mentor
+        * perhaps with the kitchen/food idea: instead of losing life we gain pounds if something gets through
+        * riffing on that idea, perhaps we could also add a way to lose pounds again - treadmill? doesn't quite fit the theme though
+        * perhaps food goes either to compost or to be eaten - may form an interesting model for damge (can still be hp on mobs internally)
+
