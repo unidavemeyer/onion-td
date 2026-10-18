@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://bkhsvu75tm5j3"]
+
+[node name="Main" type="Node2D" unique_id=448929533]
+
+[node name="Maps" type="Node2D" parent="." unique_id=2020360349]
+
+[node name="Towers" type="Node2D" parent="." unique_id=1811605756]
+
+[node name="Mobs" type="Node2D" parent="." unique_id=504796988]
