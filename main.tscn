@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://clnfgmlscfpgy" path="res://dbg_enemy_murderer.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://b6sqm7hu0cx00" path="res://test_enemy.tscn" id="2_h2yge"]
+[ext_resource type="Script" uid="uid://5f56oh4nbpn" path="res://nav_grid.gd" id="3_h2yge"]
 
 [node name="Main" type="Node2D" unique_id=448929533]
 
@@ -22,5 +23,8 @@ offset_right = 612.0
 offset_bottom = 213.0
 action_mode = 0
 text = "Attempt Murder?"
+
+[node name="NavGrid" type="Node2D" parent="Mobs" unique_id=2061912215]
+script = ExtResource("3_h2yge")
 
 [connection signal="pressed" from="Mobs/Dbg_Murderer" to="Mobs" method="_on_murder_pressed"]
