@@ -9,9 +9,12 @@ var hp: int = max_hp
 var death_time: float = 1
 
 #Navigation vars
-var speed: int = 10
+var speed: int = 30
 var path: PackedVector2Array
-var moving: bool = false
+var moving: bool = true
+var deadband: int = 15
+var target: Vector2i = Vector2i(200, 200)
+var direction: Vector2
 
 #Collision_shape vars
 var collision_shape: CollisionShape2D
@@ -45,6 +48,16 @@ func _init():
 	
 func _ready():
 	update_path()
+	
+func _physics_process(delta: float):
+	if target != null and moving:	
+		direction = global_position.direction_to(target)
+		
+		velocity = direction * speed
+		move_and_slide()
+		
+		if global_position.distance_to(target) <= deadband:
+			moving = false
 	
 func take_damage(damage: DamageParams):
 	hp -= damage.hp
