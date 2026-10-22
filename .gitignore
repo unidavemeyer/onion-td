@@ -23,3 +23,6 @@ mono_crash.*.json
 *.exe
 # Uncomment if your project does not version PCK files as runtime dependencies.
 # *.pck
+
+# Don't track Godot engine for mentor
+Godot_v4.7.2-stable_linux.x86_64
