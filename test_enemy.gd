@@ -28,6 +28,8 @@ func _init():
 	collision_shape = CollisionShape2D.new()
 	collision_shape.shape = shape
 	add_child(collision_shape)
+	# Sets it as being detectable by towers
+	set_collision_layer_value(2, true)
 	
 	#Setting up the sprite
 	sprite = AnimatedSprite2D.new()
@@ -37,6 +39,10 @@ func _init():
 	sprite.set_animation("idle")
 	sprite.scale = sprite_scale
 	add_child(sprite)
+	
+	# Marks it as an enemy for the purposes of tower targeting
+	# NOTE: No, you don't need to define the "enemy" group anywhere
+	add_to_group("enemy")
 	
 func take_damage(damage: DamageParams):
 	hp -= damage.hp

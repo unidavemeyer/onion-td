@@ -1,0 +1,30 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://b4m0toa8x4sff"]
+
+[ext_resource type="Texture2D" uid="uid://tlow7ys216i5" path="res://assets/leh-sploosh.png" id="1_wemvt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wemvt"]
+atlas = ExtResource("1_wemvt")
+region = Rect2(32, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ja7dw"]
+atlas = ExtResource("1_wemvt")
+region = Rect2(0, 0, 32, 48)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wemvt")
+}],
+"loop": 1,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ja7dw")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
+}]
