@@ -47,7 +47,7 @@ func _init() -> void:
 	sprite_frames = preload("res://assets/soup_tower.tres")
 	super(object_size, sprite_frames)
 	
-	# NOTE: the sprite_offset does not need to be scaled, using position instead of global_position means it happens automatically
+	# NOTE: This is in object space so that the scaling does not apply weirdly
 	sprite.position += sprite_offset
 	
 	# Creates the attack range of the tower as an Area2D so that we can check for units inside it. This is weirdly complicated to set up for some reason.
@@ -58,11 +58,10 @@ func _init() -> void:
 	attack_area.add_child(attack_area_collision)
 	attack_area_shape = CircleShape2D.new()
 	attack_area_collision.shape = attack_area_shape
-	# BB: In the Enemy class, we use set_radius(). I don't know if there's a reason to do that rather than setting the value directly. There might be.
-	attack_area_shape.radius = attack_radius
+	attack_area_shape.set_radius(attack_radius)
 	# NOTE: This essentially tells the attack area to only detect bodies that have collision layer 2 enabled, which means it catches enemies and not other towers (or itself)
-	attack_area.set_collision_mask_value(2, true)
-	attack_area.set_collision_mask_value(1, false)
+	attack_area.set_collision_mask_value(Constants.enemy_collision_layer, true)
+	attack_area.set_collision_mask_value(Constants.ground_collision_layer, false)
 	
 	# Finally, set up the attack timer
 	attack_timer = Timer.new()
@@ -84,7 +83,7 @@ func _process(delta: float) -> void:
 		var possible_targets = attack_area.get_overlapping_bodies()
 		for target in possible_targets:
 			# We only care about enemies for the purposes of targeting
-			if not target.is_in_group("enemy"):
+			if not target is Enemy:
 				possible_targets.erase(target)
 		
 		# Don't bother attacking if there are no targets

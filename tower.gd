@@ -25,6 +25,7 @@ func _init(size = null, sprite_frames = null) -> void:
 	# Optional parameters, likely used by super() in child classes for added control over properties
 	if size:
 		shape.size = size
+	
 	if sprite_frames:
 		sprite = AnimatedSprite2D.new()
 		add_child(sprite)
@@ -35,4 +36,4 @@ func _init(size = null, sprite_frames = null) -> void:
 		sprite.pause()
 	
 	# Finally, scale everything properly
-	scale = tower_scale
+	self.scale = tower_scale
