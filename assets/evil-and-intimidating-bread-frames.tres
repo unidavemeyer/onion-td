@@ -1,0 +1,30 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://b63cy0qgtdnbo"]
+
+[ext_resource type="Texture2D" uid="uid://tvxj3pg47ilo" path="res://assets/evil-and-intimidating-bread.png" id="1_iguoa"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_73hl5"]
+atlas = ExtResource("1_iguoa")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6olik"]
+atlas = ExtResource("1_iguoa")
+region = Rect2(0, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_73hl5")
+}],
+"loop": 1,
+"name": &"death",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6olik")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
+}]
