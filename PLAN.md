@@ -1,6 +1,34 @@
 # Planning
 
-* Approximate flow
+* Action steps
+    * Notes regarding overall plan and daily action steps
+        * Big one: Mentor trying to be ahead, so expect more actions than can fit in a day on purpose
+    * Become familiar with the GDScript style guide
+        * [https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_styleguide.html]
+        * Expectation is that we'll all use this to organize/name things for consistency
+    * Consider if there are additional refinements to the design that we need to discuss
+        * Random ideas from mentor
+            * perhaps with the kitchen/food idea: instead of losing life we gain pounds if something gets through
+            * riffing on that idea, perhaps we could also add a way to lose pounds again - treadmill? doesn't quite fit the theme though
+            * perhaps food goes either to compost or to be eaten - may form an interesting model for damge (can still be hp on mobs internally)
+    * Optional consideration: pair programming
+        * Mentor has not experience with this, but has heard good reports from others
+    * Work on a basic enemy
+        * once converted to 4.7.2 set up PR and do review
+    * Work on a basic tower
+        * use a direct call on an enemy to take damage
+        * once ready set up PR and do review
+    * Work on a basic map
+        * should define entries and exits for mobs
+        * also consider how maps add/remove
+    * Consider Phase 1 goals and continue working toward that
+    * Discussion around grid-based pathing
+        * Constraints on mobs
+        * Constraints on towers
+        * General algorithm
+        * Path Following vs. Path Finding
+
+* Roadmap
     * Phase 1 - fixed tower, fixed enemy, verify tower attack works, enemies can be damaged
         * Initial map setup
             * add/remove of child scenes
@@ -12,25 +40,13 @@
             * area 2d may be helpful
     * Phase 2 - moving enemy, single, fixed tower, verify behaviors
         * Moving mob setup
+            * Consider gridded approach and how path finding and path following work in such a model
         * Add second/nth fixed towers for additional testing
+            * For parallel dev, maybe second type of tower while mob movement is in process
     * Phase 3 - player ability to place towers (zero cost, debug)
         * Initial UI setup
     * Phase 4 - wave of enemy setup (timing, groups)
     * Phase 5 - currency and life
-
-* Action steps
-    * Work on a basic enemy
-        * once converted to 4.7.2 set up PR and do review
-    * Work on a basic tower
-        * use a direct call on an enemy to take damage
-    * Work on a basic map
-        * should define entries and exits for mobs
-
-* Forward looking
-    * Random ideas from mentor
-        * perhaps with the kitchen/food idea: instead of losing life we gain pounds if something gets through
-        * riffing on that idea, perhaps we could also add a way to lose pounds again - treadmill? doesn't quite fit the theme though
-        * perhaps food goes either to compost or to be eaten - may form an interesting model for damge (can still be hp on mobs internally)
 
 # Progress 2026-10-15
 
