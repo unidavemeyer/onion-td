@@ -4,31 +4,40 @@ extends Tower
 """The scale of the CollisionShape in pixels"""
 # NOTE: Automatically gets scaled up to match the visual pixel scale
 var object_size: Vector2 = Vector2(32, 32)
+
 """The offset of the sprite relative to the hitbox, in pixels"""
 # NOTE: ALSO automatically scaled up to visual pixels, see comment below when utilizing this variable
 # NOTE: Negative y is up, which is what we need
 var sprite_offset: Vector2 = Vector2(0, -12)
+
 """The effect radius of the tower. This tower is AOE, meaning everyone in the area is damaged"""
 # BB: This is theoretically in pixels, but it's important to note that it's scaled-up pixels
 # BB: This therefore matches the visual pixel scale but not Godot's internal idea of position etc in pixels (I will refer to these units as visual pixels)
 # BB: I'd change that now, but I don't want to drag in mostly-unrelated changes into the Tower PR. Plus, we'll have to add a camera later.
 # NOTE: 48 visual pixels is 32 visual pixels beyond the tower's boundaries. 32 visual pixels is one tile radius. I think that's sensible for an AOE tower, but we can change that later
 var attack_radius: int = 48
+
 """The Area2D representing the attack area of the tower. Uses attack_radius as its radius."""
 var attack_area: Area2D
+
 """The CollisionShape2D representing the area for the Area2D."""
 # BB: the sheer number of objects I'm declaring as variables here is insane. This is for consistency with the Tower and Enemy classes, but we should consider whether we need all of them defined as class-wide variables
 var attack_area_collision: CollisionShape2D
+
 """The Shape2D representing the attack_area."""
 var attack_area_shape: Shape2D
+
 """The Timer representing the attack cooldown of the tower."""
 var attack_timer: Timer
+
 """How long the cooldown between attacks should be, in seconds"""
 # BB: It's an AOE tower, so a long cooldown makes sense, but this may be excessive. Needs balance testing, but that's a later issue
 var attack_cooldown: int = 3
+
 """The DamageParams object we pass to enemies damaged by the tower"""
 # BB: It has a slow enough cooldown that it should do a good amount of damage. Left it at 2 so that the debug scene can have the tower attack twice, but we should change this later.
 var damage_params: DamageParams = DamageParams.new(2)
+
 """False if the attack is on cooldown"""
 var attack_ready: bool = true
 

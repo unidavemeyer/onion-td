@@ -2,8 +2,10 @@ class_name Tower
 extends StaticBody2D
 
 var collision_shape: CollisionShape2D
+
 """The shape used by the CollisionShape2D"""
 var shape: Shape2D
+
 """The scale of the tower. This is a flat multiplier, 4x matches the current scale for enemies"""
 # NOTE: We don't want to expose this to the init / allow towers to change their multiplier, because mixels suck
 # BB: This is meant to match the scale for units, but perhaps we ought to use a camera and zoom instead, or have one global constant attached to Main
