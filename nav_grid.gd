@@ -23,3 +23,6 @@ func _ready():
 func update_path():
 	path = astar_grid.get_point_path(start, end)
 	print(path)
+	
+func get_point_path():
+	return path

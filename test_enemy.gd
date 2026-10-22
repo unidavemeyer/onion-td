@@ -2,11 +2,16 @@ class_name Enemy
 
 extends CharacterBody2D
 
-#General vars
+#Health vars
 var max_hp: int = 4
 #BB: should this be a float?
 var hp: int = max_hp
 var death_time: float = 1
+
+#Navigation vars
+var speed: int = 10
+var path: PackedVector2Array
+var moving: bool = false
 
 #Collision_shape vars
 var collision_shape: CollisionShape2D
@@ -38,6 +43,9 @@ func _init():
 	sprite.scale = sprite_scale
 	add_child(sprite)
 	
+func _ready():
+	update_path()
+	
 func take_damage(damage: DamageParams):
 	hp -= damage.hp
 	if hp <= 0:
@@ -48,3 +56,9 @@ func die():
 	sprite.set_animation("death")
 	await get_tree().create_timer(death_time).timeout
 	queue_free()
+
+func update_path():
+	var nav_grid = $"../NavGrid"
+	await nav_grid.ready
+	path = nav_grid.get_point_path()
+	print("We have a path! It's", path)
