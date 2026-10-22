@@ -6,7 +6,7 @@ var astar_grid: AStarGrid2D = AStarGrid2D.new()
 var grid_size: Vector2i
 
 var start: Vector2i = Vector2i.ZERO
-var end: Vector2i = Vector2i(5,8)
+var end: Vector2i = Vector2i(8,4)
 
 var path: PackedVector2Array
 
@@ -21,5 +21,5 @@ func _ready():
 	update_path()
 	
 func update_path():
-	path = PackedVector2Array(astar_grid.get_point_path(start, end))
+	path = astar_grid.get_point_path(start, end)
 	print(path)
