@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" uid="uid://bhx3knp1oxhn1" path="res://test_enemy.gd" id="1_ghv5c"]
 
-[node name="Enemy" type="CharacterBody2D"]
+[node name="Enemy" type="CharacterBody2D" unique_id=1850480792]
 script = ExtResource("1_ghv5c")

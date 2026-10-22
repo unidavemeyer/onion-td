@@ -28,6 +28,8 @@ func _init():
 	collision_shape = CollisionShape2D.new()
 	collision_shape.shape = shape
 	add_child(collision_shape)
+	# Sets it as being detectable by towers
+	set_collision_layer_value(Constants.enemy_collision_layer, true)
 	
 	#Setting up the sprite
 	sprite = AnimatedSprite2D.new()
