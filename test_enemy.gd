@@ -2,37 +2,49 @@ class_name Enemy
 
 extends CharacterBody2D
 
-var health = 4
+#General vars
+var max_hp: int = 4
+#BB: should this be a float?
+var hp: int = max_hp
+var death_time: float = 1
 
+#Collision_shape vars
 var collision_shape: CollisionShape2D
-var size: int = 10
+#BB: units unkown (not in docs), probably pixels 
+var radius: int = 10
 var shape: CircleShape2D
 
+#Sprite vars
 var sprite: AnimatedSprite2D
 var frames: SpriteFrames = preload("res://assets/evil-and-intimidating-bread-frames.tres")
+var sprite_scale: Vector2 = Vector2(4, 4)
 
 func _init():
-	print("Init ran! Whoohoo!")
-	collision_shape = CollisionShape2D.new()
+	#print("enemy_init ran! Whoohoo!")
+	
+	#Setting up collision_shape so this can be detected
 	shape = CircleShape2D.new()
-	shape.set_radius(size)
+	shape.set_radius(radius)
+	collision_shape = CollisionShape2D.new()
 	collision_shape.shape = shape
 	add_child(collision_shape)
 	
-	sprite=AnimatedSprite2D.new()
+	#Setting up the sprite
+	sprite = AnimatedSprite2D.new()
 	sprite.set_sprite_frames(frames)
+	#BB: we're not sure we need pause, but it should prevent animations
 	sprite.pause()
 	sprite.set_animation("idle")
-	sprite.scale = Vector2(4, 4)
+	sprite.scale = sprite_scale
 	add_child(sprite)
 	
 func take_damage(damage: DamageParams):
-	health-=damage.value
-	if health <= 0:
+	hp -= damage.hp
+	if hp <= 0:
 		die()
 
 func die():
 	collision_shape.queue_free()
 	sprite.set_animation("death")
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(death_time).timeout
 	queue_free()

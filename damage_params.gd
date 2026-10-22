@@ -1,9 +1,10 @@
 class_name DamageParams
-extends Node
+extends RefCounted
 
-var value: int
+#BB: should this be a float?
+var hp: int
 var effects: Array[String]
 
-func _init(value: int, effects: Array[String] = []):
-	self.value = value
+func _init(hp: int, effects: Array[String] = []):
+	self.hp = hp
 	self.effects = effects
