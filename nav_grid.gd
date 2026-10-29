@@ -5,12 +5,15 @@ var cell_size: Vector2i = Vector2i(32 * cell_scalar, 32 * cell_scalar)
 var astar_grid: AStarGrid2D = AStarGrid2D.new()
 var grid_size: Vector2i
 
-var start: Vector2i = Vector2i.ZERO
-var end: Vector2i = Vector2i(8,4)
+var path_start: Vector2i = Vector2i.ZERO
+var path_end: Vector2i = Vector2i(8,4)
 
 var path: PackedVector2Array
 
 func _ready():
+	setup()
+	
+func setup():
 	#Creates the grid
 	@warning_ignore("integer_division")
 	grid_size = Vector2i(get_viewport_rect().size) / cell_size
@@ -24,10 +27,12 @@ func _ready():
 	astar_grid.update()
 	#print("Ready!")
 	update_path()
-	
+
 func update_path():
-	path = astar_grid.get_point_path(start, end)
+	#BB: could/should this be async?
+	path = astar_grid.get_point_path(path_start, path_end)
 	#print(path)
 	
 func get_point_path():
-	return path
+	#BB: should we have a less expensive option?
+	return path.duplicate()

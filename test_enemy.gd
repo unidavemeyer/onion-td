@@ -13,7 +13,7 @@ var speed: int = 30
 var path: PackedVector2Array
 var moving: bool = false
 #Uses ciel to ensure that it's not too small
-var reach_deadband: int = ceil(float(speed)/2)
+var reach_deadband: int = 5
 var target: Vector2i
 var direction: Vector2
 
@@ -49,7 +49,8 @@ func _init():
 	
 func _ready():
 	update_path()
-	
+
+#BB: we might want to refactor this later
 func _physics_process(_delta: float):
 	if target != null and moving:	
 		direction = global_position.direction_to(target)
@@ -59,20 +60,16 @@ func _physics_process(_delta: float):
 		
 		if global_position.distance_to(target) <= reach_deadband:
 			moving = false
-	else:
-		if path != null && len(path)>0:
-			#Finds where the target that we just reached is, removes it
-			var index = path.find(target)
-			if index != -1:
-				path.remove_at(index)
-			#Sees if there's another target to reach
-			if len(path) > 0:
-				target=path[0]
-				#print(target)
-				moving = true
-			else:
-				moving = false
-				#print("Path Followed!")
+		
+	elif path != null and len(path) > 0:
+		#Sees if the target we just reached is on the path
+		if Vector2i(path[0]) == target:
+			path.remove_at(0)
+		#Sees if there's another target to reach
+		if len(path) > 0:
+			target = path[0]
+			#print(target)
+			moving = true
 	
 func take_damage(damage: DamageParams):
 	hp -= damage.hp
@@ -82,6 +79,7 @@ func take_damage(damage: DamageParams):
 func die():
 	collision_shape.queue_free()
 	sprite.set_animation("death")
+	#BB: can we just stop physics updates?
 	#Now it stops once it dies
 	moving = false
 	path = []
@@ -89,7 +87,9 @@ func die():
 	queue_free()
 
 func update_path():
+	#BB: change how we get it in case the navgrid moves. Make it global?
 	var nav_grid = $"../NavGrid"
+	#BB: should this call a boolean instead of using await?
 	await nav_grid.ready
 	path = nav_grid.get_point_path()
 	#print("We have a path! It's", path)
