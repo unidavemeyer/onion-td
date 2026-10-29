@@ -2,11 +2,20 @@ class_name Enemy
 
 extends CharacterBody2D
 
-#General vars
+#Health vars
 var max_hp: int = 4
 #BB: should this be a float?
 var hp: int = max_hp
 var death_time: float = 1
+
+#Navigation vars
+var speed: int = 30
+var path: PackedVector2Array
+var moving: bool = false
+#Uses ciel to ensure that it's not too small
+var reach_deadband: int = 5
+var target: Vector2i
+var direction: Vector2
 
 #Collision_shape vars
 var collision_shape: CollisionShape2D
@@ -22,7 +31,7 @@ var sprite_scale: Vector2 = Vector2(4, 4)
 func _init():
 	#print("enemy_init ran! Whoohoo!")
 	
-	#Setting up collision_shape so this can be detected
+	#Sets up collision_shape so this can be detected
 	shape = CircleShape2D.new()
 	shape.set_radius(radius)
 	collision_shape = CollisionShape2D.new()
@@ -31,7 +40,7 @@ func _init():
 	# Sets it as being detectable by towers
 	set_collision_layer_value(Constants.enemy_collision_layer, true)
 	
-	#Setting up the sprite
+	#Sets up the sprite
 	sprite = AnimatedSprite2D.new()
 	sprite.set_sprite_frames(frames)
 	#BB: we're not sure we need pause, but it should prevent animations
@@ -39,6 +48,30 @@ func _init():
 	sprite.set_animation("idle")
 	sprite.scale = sprite_scale
 	add_child(sprite)
+	
+func _ready():
+	update_path()
+
+#BB: we might want to refactor this later
+func _physics_process(_delta: float):
+	if target != null and moving:	
+		direction = global_position.direction_to(target)
+		
+		velocity = direction * speed
+		move_and_slide()
+		
+		if global_position.distance_to(target) <= reach_deadband:
+			moving = false
+		
+	elif path != null and len(path) > 0:
+		#Sees if the target we just reached is on the path
+		if Vector2i(path[0]) == target:
+			path.remove_at(0)
+		#Sees if there's another target to reach
+		if len(path) > 0:
+			target = path[0]
+			#print(target)
+			moving = true
 	
 func take_damage(damage: DamageParams):
 	hp -= damage.hp
@@ -48,5 +81,17 @@ func take_damage(damage: DamageParams):
 func die():
 	collision_shape.queue_free()
 	sprite.set_animation("death")
+	#BB: can we just stop physics updates?
+	#Now it stops once it dies
+	moving = false
+	path = []
 	await get_tree().create_timer(death_time).timeout
 	queue_free()
+
+func update_path():
+	#BB: change how we get it in case the navgrid moves. Make it global?
+	var nav_grid = $"../NavGrid"
+	#BB: should this call a boolean instead of using await?
+	await nav_grid.ready
+	path = nav_grid.get_point_path()
+	#print("We have a path! It's", path)
