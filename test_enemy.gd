@@ -13,7 +13,7 @@ var speed: int = 30
 var path: PackedVector2Array
 var moving: bool = false
 #Uses ciel to ensure that it's not too small
-var deadband: int = ceil(float(speed)/2)
+var reach_deadband: int = ceil(float(speed)/2)
 var target: Vector2i
 var direction: Vector2
 
@@ -57,7 +57,7 @@ func _physics_process(_delta: float):
 		velocity = direction * speed
 		move_and_slide()
 		
-		if global_position.distance_to(target) <= deadband:
+		if global_position.distance_to(target) <= reach_deadband:
 			moving = false
 	else:
 		if path != null && len(path)>0:
