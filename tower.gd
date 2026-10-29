@@ -6,10 +6,8 @@ var collision_shape: CollisionShape2D
 """The shape used by the CollisionShape2D"""
 var shape: Shape2D
 
-"""The scale of the tower. This is a flat multiplier, 4x matches the current scale for enemies"""
-# NOTE: We don't want to expose this to the init / allow towers to change their multiplier, because mixels suck
-# BB: This is meant to match the scale for units, but perhaps we ought to use a camera and zoom instead, or have one global constant attached to Main
-var tower_scale: Vector2 = Vector2(4, 4)
+"""The size of the tower's base"""
+var tower_size: Vector2
 
 var sprite: AnimatedSprite2D
 var sprite_frames: SpriteFrames
@@ -24,7 +22,9 @@ func _init(size = null, sprite_frames = null) -> void:
 	
 	# Optional parameters, likely used by super() in child classes for added control over properties
 	if size:
-		shape.size = size
+		self.tower_size = size
+	
+	shape.size = tower_size
 	
 	if sprite_frames:
 		sprite = AnimatedSprite2D.new()
@@ -34,6 +34,25 @@ func _init(size = null, sprite_frames = null) -> void:
 		sprite.play("idle")
 		# BB: Is this needed? I worry it might unnecessarily loop a single frame otherwise. Could just animate the fire and make it obsolete
 		sprite.pause()
+
+func _ready() -> void:
+	# Snap to the grid!
+	if tower_size == Vector2(32, 32):
+		# Make sure a tower is the right size for grid snapping
+		# NOTE: Larger towers can have elif statements later, if we make them
+		var maps = get_node("/root/Main/Maps")
+		var tile_position = maps.get_nearest_tile(global_position)
+		global_position = maps.get_pixel_position(tile_position)
+		
+		# Set the tile as impassable for AStar pathfinding
+		Constants.navigation_grid.disable_tile(tile_position)
+
+func move_to(pixel_position: Vector2):
+	var maps = get_node("/root/Main/Maps")
+	var tile_position = maps.get_nearest_tile(global_position)
+	Constants.navigation_grid.enable_tile(tile_position)
 	
-	# Finally, scale everything properly
-	self.scale = tower_scale
+	global_position = pixel_position
+	tile_position = maps.get_nearest_tile(global_position)
+	Constants.navigation_grid.disable_tile(tile_position)
+	global_position = maps.get_pixel_position(tile_position)
