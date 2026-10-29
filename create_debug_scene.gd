@@ -8,7 +8,7 @@ func _ready() -> void:
 	# Creates a soup tower
 	var dbg_tower: SoupTower = SoupTower.new()
 	$Towers.add_child(dbg_tower)
-	dbg_tower.global_position = $Maps.get_pixel_position(Vector2i(5, 5))
+	dbg_tower.move_to($Maps.get_pixel_position(Vector2i(5, 5)))
 	
 	# Creates a basic enemy
 	var dbg_enemy: Enemy = Enemy.new()

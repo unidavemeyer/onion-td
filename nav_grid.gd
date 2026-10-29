@@ -29,7 +29,7 @@ func setup(grid_size: Vector2i = Vector2i(10, 10)):
 	astar_grid.offset = cell_size / 2
 	
 	#Allows it to move diagonally unless it is blocked by two towers
-	astar_grid.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_AT_LEAST_ONE_WALKABLE
+	astar_grid.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_ONLY_IF_NO_OBSTACLES
 	#NOTE: AStarGrid2D.update() resets all tile data, and thus we don't need to reset tiles
 	astar_grid.update()
 	
@@ -58,7 +58,13 @@ func get_point_path():
 	return path.duplicate()
 
 func disable_tile(tile_position: Vector2i):
-	# NOTE: Solid = false means non-navigable
+	# NOTE: Solid = true means non-navigable
+	# NOTE: We don't want to run update() since that resets tile data
+	astar_grid.set_point_solid(tile_position, true)
+	update_path()
+
+func enable_tile(tile_position: Vector2i):
+	# NOTE: Solid = true means non-navigable
 	# NOTE: We don't want to run update() since that resets tile data
 	astar_grid.set_point_solid(tile_position, false)
 	update_path()

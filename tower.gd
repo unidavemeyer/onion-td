@@ -46,3 +46,13 @@ func _ready() -> void:
 		
 		# Set the tile as impassable for AStar pathfinding
 		Constants.navigation_grid.disable_tile(tile_position)
+
+func move_to(pixel_position: Vector2):
+	var maps = get_node("/root/Main/Maps")
+	var tile_position = maps.get_nearest_tile(global_position)
+	Constants.navigation_grid.enable_tile(tile_position)
+	
+	global_position = pixel_position
+	tile_position = maps.get_nearest_tile(global_position)
+	Constants.navigation_grid.disable_tile(tile_position)
+	global_position = maps.get_pixel_position(tile_position)
