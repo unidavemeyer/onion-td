@@ -12,7 +12,8 @@ var death_time: float = 1
 var speed: int = 30
 var path: PackedVector2Array
 var moving: bool = false
-var deadband: int = 15
+#Uses ciel to ensure that it's not too small
+var deadband: int = ceil(float(speed)/2)
 var target: Vector2i
 var direction: Vector2
 
@@ -30,14 +31,14 @@ var sprite_scale: Vector2 = Vector2(4, 4)
 func _init():
 	#print("enemy_init ran! Whoohoo!")
 	
-	#Setting up collision_shape so this can be detected
+	#Sets up collision_shape so this can be detected
 	shape = CircleShape2D.new()
 	shape.set_radius(radius)
 	collision_shape = CollisionShape2D.new()
 	collision_shape.shape = shape
 	add_child(collision_shape)
 	
-	#Setting up the sprite
+	#Sets up the sprite
 	sprite = AnimatedSprite2D.new()
 	sprite.set_sprite_frames(frames)
 	#BB: we're not sure we need pause, but it should prevent animations
@@ -60,16 +61,18 @@ func _physics_process(_delta: float):
 			moving = false
 	else:
 		if path != null && len(path)>0:
+			#Finds where the target that we just reached is, removes it
 			var index = path.find(target)
 			if index != -1:
 				path.remove_at(index)
+			#Sees if there's another target to reach
 			if len(path) > 0:
 				target=path[0]
-				print(target)
+				#print(target)
 				moving = true
 			else:
 				moving = false
-				print("Path Followed!")
+				#print("Path Followed!")
 	
 func take_damage(damage: DamageParams):
 	hp -= damage.hp
@@ -79,6 +82,9 @@ func take_damage(damage: DamageParams):
 func die():
 	collision_shape.queue_free()
 	sprite.set_animation("death")
+	#Now it stops once it dies
+	moving = false
+	path = []
 	await get_tree().create_timer(death_time).timeout
 	queue_free()
 
@@ -86,4 +92,4 @@ func update_path():
 	var nav_grid = $"../NavGrid"
 	await nav_grid.ready
 	path = nav_grid.get_point_path()
-	print("We have a path! It's", path)
+	#print("We have a path! It's", path)
