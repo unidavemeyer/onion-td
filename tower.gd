@@ -41,4 +41,8 @@ func _ready() -> void:
 		# Make sure a tower is the right size for grid snapping
 		# NOTE: Larger towers can have elif statements later, if we make them
 		var maps = get_node("/root/Main/Maps")
-		global_position = maps.get_pixel_position(maps.get_nearest_tile(global_position))
+		var tile_position = maps.get_nearest_tile(global_position)
+		global_position = maps.get_pixel_position(tile_position)
+		
+		# Set the tile as impassable for AStar pathfinding
+		Constants.navigation_grid.disable_tile(tile_position)
