@@ -11,9 +11,9 @@ var death_time: float = 1
 #Navigation vars
 var speed: int = 30
 var path: PackedVector2Array
-var moving: bool = true
+var moving: bool = false
 var deadband: int = 15
-var target: Vector2i = Vector2i(200, 200)
+var target: Vector2i
 var direction: Vector2
 
 #Collision_shape vars
@@ -49,7 +49,7 @@ func _init():
 func _ready():
 	update_path()
 	
-func _physics_process(delta: float):
+func _physics_process(_delta: float):
 	if target != null and moving:	
 		direction = global_position.direction_to(target)
 		
@@ -58,6 +58,18 @@ func _physics_process(delta: float):
 		
 		if global_position.distance_to(target) <= deadband:
 			moving = false
+	else:
+		if path != null && len(path)>0:
+			var index = path.find(target)
+			if index != -1:
+				path.remove_at(index)
+			if len(path) > 0:
+				target=path[0]
+				print(target)
+				moving = true
+			else:
+				moving = false
+				print("Path Followed!")
 	
 func take_damage(damage: DamageParams):
 	hp -= damage.hp

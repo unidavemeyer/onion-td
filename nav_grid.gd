@@ -11,9 +11,11 @@ var end: Vector2i = Vector2i(8,4)
 var path: PackedVector2Array
 
 func _ready():
+	@warning_ignore("integer_division")
 	grid_size = Vector2i(get_viewport_rect().size) / cell_size
 	astar_grid.size = grid_size
 	astar_grid.cell_size = cell_size
+	@warning_ignore("integer_division")
 	astar_grid.offset = cell_size / 2
 	astar_grid.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_AT_LEAST_ONE_WALKABLE
 	astar_grid.update()
