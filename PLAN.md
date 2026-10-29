@@ -15,6 +15,12 @@
     * Consider solution for scaling everywhere
         * Possibility: scale camera (view) so factor is applied one place
         * Possibility: scale images (but has issues with mismatch to bodies, etc.)
+        * Possibility: player controlled zoom (would likely require off-screen indicators for things)
+    * Discuss notion of driving towards a playtest
+        * Is this something we'd like to do? Discuss focus tests in professional gamedev.
+        * Sync or async? If sync, where/when/who? If async, how do we gate appropriately, and record?
+        * If we provide web version, could allow subset of students to try it out?
+        * Telemetry? How do we record what they did, how they did it, etc.?
     * Work on a basic map
         * should define entries and exits for mobs
         * also consider how maps add/remove
