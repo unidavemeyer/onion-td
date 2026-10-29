@@ -1,32 +1,44 @@
 # Planning
 
+* Reminders
+    * [https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_styleguide.html]
+    * Feature branch development style with PR's back to main
+
 * Action steps
-    * Notes regarding overall plan and daily action steps
-        * Big one: Mentor trying to be ahead, so expect more actions than can fit in a day on purpose
-    * Become familiar with the GDScript style guide
-        * [https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_styleguide.html]
-        * Expectation is that we'll all use this to organize/name things for consistency
-    * Consider if there are additional refinements to the design that we need to discuss
-        * Random ideas from mentor
-            * perhaps with the kitchen/food idea: instead of losing life we gain pounds if something gets through
-            * riffing on that idea, perhaps we could also add a way to lose pounds again - treadmill? doesn't quite fit the theme though
-            * perhaps food goes either to compost or to be eaten - may form an interesting model for damge (can still be hp on mobs internally)
-    * Optional consideration: pair programming
-        * Mentor has not experience with this, but has heard good reports from others
-    * Work on a basic enemy
-        * once converted to 4.7.2 set up PR and do review
-    * Work on a basic tower
-        * use a direct call on an enemy to take damage
-        * once ready set up PR and do review
-    * Work on a basic map
-        * should define entries and exits for mobs
-        * also consider how maps add/remove
-    * Consider Phase 1 goals and continue working toward that
-    * Discussion around grid-based pathing
+    * constants.gd missing
+        * should repair and PR into main
+    * Continue work on grid-based pathing
         * Constraints on mobs
         * Constraints on towers
         * General algorithm
         * Path Following vs. Path Finding
+    * Consider solution for scaling everywhere
+        * Possibility: scale camera (view) so factor is applied one place
+        * Possibility: scale images (but has issues with mismatch to bodies, etc.)
+        * Possibility: player controlled zoom (would likely require off-screen indicators for things)
+    * Discuss notion of driving towards a playtest
+        * Is this something we'd like to do? Discuss focus tests in professional gamedev.
+        * Sync or async? If sync, where/when/who? If async, how do we gate appropriately, and record?
+        * If we provide web version, could allow subset of students to try it out?
+        * Telemetry? How do we record what they did, how they did it, etc.?
+    * Work on a basic map
+        * should define entries and exits for mobs
+        * also consider how maps add/remove
+        * also consider map features - auto/start towers, say
+    * How do we enforce tower-to-grid behavior?
+        * presumably same grid as pathing for simplicity although not requirement if we have reason to diverge
+        * consider grid coordinate system perhaps?
+            * single mapping system (class? functions?) from grid coords to pixels
+            * store/set tower pos in grid coords instead of pixels?
+    * Consider Phase 1 goals and continue working toward that
+        * Once we have map, can set up "real" test of map + tower + mob and prove out these parts
+        * Suggest we label/tag/whatever this in git for progress checking/history/etc.
+    * Create second type of tower (for phase 2)
+        * fast small damage single target?
+        * slow large damage single target?
+        * slow large damage area-of-effect at projectile?
+        * (plenty of other possibilities)
+    * Consider Phase 2 goals and continue working toward that
 
 * Roadmap
     * Phase 1 - fixed tower, fixed enemy, verify tower attack works, enemies can be damaged
@@ -47,6 +59,27 @@
         * Initial UI setup
     * Phase 4 - wave of enemy setup (timing, groups)
     * Phase 5 - currency and life
+
+# Progress 2026-10-22
+
+* Action steps
+    * Notes regarding overall plan and daily action steps
+        * Big one: Mentor trying to be ahead, so expect more actions than can fit in a day on purpose
+    * Become familiar with the GDScript style guide
+        * [https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_styleguide.html]
+        * Expectation is that we'll all use this to organize/name things for consistency
+    * Consider if there are additional refinements to the design that we need to discuss
+        * Random ideas from mentor
+            * perhaps with the kitchen/food idea: instead of losing life we gain pounds if something gets through
+            * riffing on that idea, perhaps we could also add a way to lose pounds again - treadmill? doesn't quite fit the theme though
+            * perhaps food goes either to compost or to be eaten - may form an interesting model for damge (can still be hp on mobs internally)
+    * Optional consideration: pair programming
+        * Mentor has not experience with this, but has heard good reports from others
+    * Work on a basic enemy
+        * once converted to 4.7.2 set up PR and do review
+    * Work on a basic tower
+        * use a direct call on an enemy to take damage
+        * once ready set up PR and do review
 
 # Progress 2026-10-15
 
