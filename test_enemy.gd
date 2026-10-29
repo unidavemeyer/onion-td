@@ -17,7 +17,6 @@ var shape: CircleShape2D
 #Sprite vars
 var sprite: AnimatedSprite2D
 var frames: SpriteFrames = preload("res://assets/evil-and-intimidating-bread-frames.tres")
-var sprite_scale: Vector2 = Vector2(4, 4)
 
 func _init():
 	#print("enemy_init ran! Whoohoo!")
@@ -37,7 +36,6 @@ func _init():
 	#BB: we're not sure we need pause, but it should prevent animations
 	sprite.pause()
 	sprite.set_animation("idle")
-	sprite.scale = sprite_scale
 	add_child(sprite)
 	
 func take_damage(damage: DamageParams):
