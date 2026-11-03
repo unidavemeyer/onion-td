@@ -5,43 +5,91 @@
     * Feature branch development style with PR's back to main
 
 * Action steps
-    * constants.gd missing
-        * should repair and PR into main
-    * Continue work on grid-based pathing
-        * Constraints on mobs
-        * Constraints on towers
-        * General algorithm
-        * Path Following vs. Path Finding
+    * finish review
+        * should leave PR in state we're at
+        * we're on test_enemy.gd for reference, looking at update_path and such
+        * covers next three points
     * Consider solution for scaling everywhere
         * Possibility: scale camera (view) so factor is applied one place
         * Possibility: scale images (but has issues with mismatch to bodies, etc.)
         * Possibility: player controlled zoom (would likely require off-screen indicators for things)
-    * Discuss notion of driving towards a playtest
-        * Is this something we'd like to do? Discuss focus tests in professional gamedev.
-        * Sync or async? If sync, where/when/who? If async, how do we gate appropriately, and record?
-        * If we provide web version, could allow subset of students to try it out?
-        * Telemetry? How do we record what they did, how they did it, etc.?
+        * discussed - work comingled with map work
     * Work on a basic map
         * should define entries and exits for mobs
         * also consider how maps add/remove
         * also consider map features - auto/start towers, say
+        * work in progress on this front, comingled with zoom issues
     * How do we enforce tower-to-grid behavior?
         * presumably same grid as pathing for simplicity although not requirement if we have reason to diverge
         * consider grid coordinate system perhaps?
             * single mapping system (class? functions?) from grid coords to pixels
             * store/set tower pos in grid coords instead of pixels?
-    * Consider Phase 1 goals and continue working toward that
+        * this is in progress and/or done with the map work
+    * discuss pathing when things change
+        * repath from cur to goal always possible
+        * if nobody can be "sat atop of" then could also do nearest point to get segment
+        * perhaps this is a reasonable point for a signal - on_path_cells_changed or similar
+    * query: should we consider seeking interested parties to provide nicer art?
+        * doing this would be side quest for programming I think
+        * on the other hand, nicer art would provide a better experience - think playtesting
+        * unclear if there are other students that may be interested in volunteering on this
+        * is this worth pursuing, or should we leave this as is and not sweat it?
+        * if we do this, we should also make crystal clear image formats and sizes and such
+        * if we do this, should make clear our licensing and that it works for people
+    * query: should we do anything about sound?
+        * possible resource: https://en.wikipedia.org/wiki/Wikipedia:Free_sound_resources
+        * definitely not something we should spend much time on...but again may help the experience - playtesting
+        * another area of: should we open this to volunteer students? not sure if anyone is in this camp
+        * if we use "found footage" here (resources linked above) will need to be very clear on licensing
+            * ex: can/should we check in to our project, or link to theirs directly? will Godot do that?
+            * ex: if we use their asset, does it impact our licensing?
+    * Consider Phase 1
         * Once we have map, can set up "real" test of map + tower + mob and prove out these parts
+        * Are we basically done?
         * Suggest we label/tag/whatever this in git for progress checking/history/etc.
-    * Create second type of tower (for phase 2)
-        * fast small damage single target?
-        * slow large damage single target?
-        * slow large damage area-of-effect at projectile?
-        * (plenty of other possibilities)
-    * Consider Phase 2 goals and continue working toward that
+    * Phase 2 enemy work queue:
+        * enemy variety - add second enemy type
+        * wave spawning - add some way to spawn waves of enemies
+            * recall this will be where random seeds probably fit -- waves = the run, I think?
+    * Phase 2 tower work queue:
+        * Create second type of tower
+            * fast small damage single target?
+            * slow large damage single target?
+            * slow large damage area-of-effect at projectile?
+            * (plenty of other possibilities)
+    * Consider Phase 2
+        * are we done? If not, what is missing?
+    * Phase 3 work items:
+        * user placement of towers - UI
+        * user placement of towers - mouse input following
+        * user placement of towers - allowed/disallowed cells
+        * user placement of towers - cell grid snapping
+        * response to tower placement - repathing for enemies
+    * Phase 4 work items:
+        * currency
+            * how do players gain this? defeating enemies? other?
+            * where (in code) do we track this?
+            * where (in ui) do we show this?
+            * how do towers properly deduct from this?
+            * planning: how do we balance this? what stats do we need? feels like data is important before just diving in...
+        * life
+            * how much do players start with? map defined? constant?
+            * where (in code) do we track this?
+            * where (in ui) do we show this?
+            * how do enemies properly deduct from this?
+    * Phase 5 work status:
+        * Goal: 6-ish towers - adjust? keep?
+        * Goal: 3-ish enemies - adjust? keep?
+        * Goal: 2-ish maps
+        * grid pathing working
+        * enemy waves working
+        * input methods working
+        * currency working
+        * life working (end of game)
+        * basic UI in place
 
 * Roadmap
-    * Phase 1 - fixed tower, fixed enemy, verify tower attack works, enemies can be damaged
+    * COMPLETE? Phase 1 - fixed tower, fixed enemy, verify tower attack works, enemies can be damaged
         * Initial map setup
             * add/remove of child scenes
             * possibly also instantiate
@@ -57,8 +105,38 @@
             * For parallel dev, maybe second type of tower while mob movement is in process
     * Phase 3 - player ability to place towers (zero cost, debug)
         * Initial UI setup
-    * Phase 4 - wave of enemy setup (timing, groups)
-    * Phase 5 - currency and life
+    * Phase 4 - currency and life
+    * Phase 5 - any remaining items for minimum viable product
+    * Phase 6 - plan for playtesting (tbd what items ultimately go here)
+
+# Progress 2026-10-29
+
+* Action steps
+    * constants.gd missing
+        * should repair and PR into main
+        * fixed
+    * Continue work on grid-based pathing
+        * Constraints on mobs
+        * Constraints on towers
+        * General algorithm
+        * Path Following vs. Path Finding
+        * reviewed and submitted - this is complete
+    * Consider solution for scaling everywhere
+        * discussed - work comingled with map work - in review
+    * Work on a basic map
+        * work in progress on this front, comingled with zoom issues - in review
+    * How do we enforce tower-to-grid behavior?
+        * this is in progress and/or done with the map work - in review
+    * Discuss notion of driving towards a playtest
+        * Is this something we'd like to do? Discuss focus tests in professional gamedev.
+          * In agreement that this makes sense as goal #2
+        * Sync or async? If sync, where/when/who? If async, how do we gate appropriately, and record?
+          * async link seems less likely to work
+          * sync on specific point test may be better
+          * possibly playtest at robotics competitions
+        * If we provide web version, could allow subset of students to try it out?
+        * Telemetry? How do we record what they did, how they did it, etc.?
+          * could do local instead of network as well
 
 # Progress 2026-10-22
 
