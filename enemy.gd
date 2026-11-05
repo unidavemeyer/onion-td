@@ -5,7 +5,7 @@ extends CharacterBody2D
 #Health vars
 var max_hp: int = 4
 #BB: should this be a float?
-var hp: int = max_hp
+var hp: int
 var death_time: float = 1
 
 #Navigation vars
@@ -30,6 +30,8 @@ var frames: SpriteFrames = preload("res://assets/evil-and-intimidating-bread-fra
 var path_age_ms: float = 0
 
 func _init():
+	hp = max_hp
+	
 	#print("enemy_init ran! Whoohoo!")
 	
 	#Sets up collision_shape so this can be detected
