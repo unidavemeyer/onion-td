@@ -82,7 +82,7 @@ func _process(delta: float) -> void:
 			return
 		else:
 			# Attack a random target within range -- I think this is fun and flavorful for a pepper shaker
-			attack(possible_targets[0])
+			attack(possible_targets[randi_range(0, len(possible_targets) - 1)])
 
 """Attack an enemy, dealing damage based on damage_params"""
 func attack(target: Enemy):
