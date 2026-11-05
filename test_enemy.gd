@@ -26,7 +26,8 @@ var shape: CircleShape2D
 #Sprite vars
 var sprite: AnimatedSprite2D
 var frames: SpriteFrames = preload("res://assets/evil-and-intimidating-bread-frames.tres")
-var sprite_scale: Vector2 = Vector2(4, 4)
+
+var path_age_ms: float = 0
 
 func _init():
 	#print("enemy_init ran! Whoohoo!")
@@ -46,7 +47,6 @@ func _init():
 	#BB: we're not sure we need pause, but it should prevent animations
 	sprite.pause()
 	sprite.set_animation("idle")
-	sprite.scale = sprite_scale
 	add_child(sprite)
 	
 func _ready():
@@ -54,6 +54,9 @@ func _ready():
 
 #BB: we might want to refactor this later
 func _physics_process(_delta: float):
+	if Constants.navigation_grid.last_updated_at > path_age_ms:
+		update_path()
+	
 	if target != null and moving:	
 		direction = global_position.direction_to(target)
 		
@@ -89,9 +92,11 @@ func die():
 	queue_free()
 
 func update_path():
-	#BB: change how we get it in case the navgrid moves. Make it global?
-	var nav_grid = $"../NavGrid"
-	#BB: should this call a boolean instead of using await?
-	await nav_grid.ready
-	path = nav_grid.get_point_path()
-	#print("We have a path! It's", path)
+	var nav_grid: NavGrid = Constants.navigation_grid
+	if nav_grid.is_ready:
+		path = nav_grid.get_point_path()
+		#print("We have a path! It's", path)
+	else:
+		await get_tree().create_timer(0.1).timeout
+		update_path()
+	path_age_ms = Time.get_ticks_msec()

@@ -2,19 +2,13 @@ class_name SoupTower
 extends Tower
 
 """The scale of the CollisionShape in pixels"""
-# NOTE: Automatically gets scaled up to match the visual pixel scale
 var object_size: Vector2 = Vector2(32, 32)
 
 """The offset of the sprite relative to the hitbox, in pixels"""
-# NOTE: ALSO automatically scaled up to visual pixels, see comment below when utilizing this variable
 # NOTE: Negative y is up, which is what we need
 var sprite_offset: Vector2 = Vector2(0, -12)
 
-"""The effect radius of the tower. This tower is AOE, meaning everyone in the area is damaged"""
-# BB: This is theoretically in pixels, but it's important to note that it's scaled-up pixels
-# BB: This therefore matches the visual pixel scale but not Godot's internal idea of position etc in pixels (I will refer to these units as visual pixels)
-# BB: I'd change that now, but I don't want to drag in mostly-unrelated changes into the Tower PR. Plus, we'll have to add a camera later.
-# NOTE: 48 visual pixels is 32 visual pixels beyond the tower's boundaries. 32 visual pixels is one tile radius. I think that's sensible for an AOE tower, but we can change that later
+"""The effect radius of the tower, in pixels. This tower is AOE, meaning everyone in the area is damaged"""
 var attack_radius: int = 48
 
 """The Area2D representing the attack area of the tower. Uses attack_radius as its radius."""
@@ -43,7 +37,7 @@ var attack_ready: bool = true
 
 func _init() -> void:
 	# Creates a Tower with the specific SpriteFrames and size of the tower.
-	# NOTE: Tower size ought to be standard at 32 visual pixels, but I made it an argument just to be safe
+	# NOTE: Tower size ought to be standard at 32 pixels, but I made it an argument just to be safe
 	sprite_frames = preload("res://assets/soup_tower.tres")
 	super(object_size, sprite_frames)
 	

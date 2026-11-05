@@ -1,34 +1,30 @@
 [gd_scene format=3 uid="uid://bkhsvu75tm5j3"]
 
 [ext_resource type="Script" uid="uid://clnfgmlscfpgy" path="res://dbg_enemy_murderer.gd" id="1_0xm2m"]
-[ext_resource type="Script" uid="uid://ea7lw8u5tymv" path="res://constants.gd" id="1_1bvp3"]
-[ext_resource type="Script" uid="uid://xqy1melpbpyi" path="res://dbg_create_tower.gd" id="1_h2yge"]
-[ext_resource type="PackedScene" uid="uid://b6sqm7hu0cx00" path="res://test_enemy.tscn" id="2_h2yge"]
-[ext_resource type="Script" uid="uid://5f56oh4nbpn" path="res://nav_grid.gd" id="3_h2yge"]
+[ext_resource type="Script" uid="uid://6qjyp2xkrvge" path="res://create_debug_scene.gd" id="1_h2yge"]
+[ext_resource type="Script" uid="uid://begjtx5bpl56k" path="res://maps.gd" id="2_lquwl"]
 
 [node name="Main" type="Node2D" unique_id=448929533]
-script = ExtResource("1_1bvp3")
+script = ExtResource("1_h2yge")
 
 [node name="Maps" type="Node2D" parent="." unique_id=2020360349]
+script = ExtResource("2_lquwl")
 
 [node name="Towers" type="Node2D" parent="." unique_id=1811605756]
-script = ExtResource("1_h2yge")
 
 [node name="Mobs" type="Node2D" parent="." unique_id=504796988]
 script = ExtResource("1_0xm2m")
 
-[node name="Enemy" parent="Mobs" unique_id=1458761035 instance=ExtResource("2_h2yge")]
-position = Vector2(542, 321)
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1009667383]
+zoom = Vector2(2, 2)
 
-[node name="Dbg_Murderer" type="Button" parent="Mobs" unique_id=235389137]
-offset_left = 470.0
-offset_top = 182.0
-offset_right = 612.0
-offset_bottom = 213.0
+[node name="Dbg_Murderer" type="Button" parent="Camera2D" unique_id=235389137]
+offset_left = -38.0
+offset_top = -77.0
+offset_right = 37.0
+offset_bottom = -57.0
+theme_override_font_sizes/font_size = 8
 action_mode = 0
 text = "Attempt Murder?"
 
-[node name="NavGrid" type="Node2D" parent="Mobs" unique_id=2061912215]
-script = ExtResource("3_h2yge")
-
-[connection signal="pressed" from="Mobs/Dbg_Murderer" to="Mobs" method="_on_murder_pressed"]
+[connection signal="pressed" from="Camera2D/Dbg_Murderer" to="Mobs" method="_on_murder_pressed"]
