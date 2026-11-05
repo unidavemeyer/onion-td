@@ -70,6 +70,8 @@ func collision_shape_setup():
 	add_child(collision_shape)
 	# Sets it as being detectable by towers
 	set_collision_layer_value(Constants.enemy_collision_layer, true)
+	# Makes sure enemies don't bump
+	set_collision_mask_value(1, false)
 
 func sprite_setup():
 	sprite = AnimatedSprite2D.new()
