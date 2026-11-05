@@ -1,4 +1,4 @@
-class_name fast_enemy
+class_name FastEnemy
 extends Enemy
 
 func var_setup():

@@ -1,4 +1,4 @@
-class_name bread_slice
+class_name BreadSlice
 extends Enemy
 
 func var_setup():

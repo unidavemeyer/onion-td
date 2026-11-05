@@ -81,6 +81,7 @@ func sprite_setup():
 
 func var_setup():
 	#Anyone who inherets this should define vars in it
+	#BB: can we make it so you're required to have these?
 	pass
 
 func take_damage(damage: DamageParams):
