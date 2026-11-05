@@ -3,13 +3,13 @@ class_name Enemy
 extends CharacterBody2D
 
 #Health vars
-var max_hp: int = 4
+var max_hp: int
 #BB: should this be a float?
 var hp: int
 var death_time: float = 1
 
 #Navigation vars
-var speed: int = 30
+var speed: int
 var path: PackedVector2Array
 var moving: bool = false
 #Uses ciel to ensure that it's not too small
@@ -20,12 +20,12 @@ var direction: Vector2
 #Collision_shape vars
 var collision_shape: CollisionShape2D
 #BB: units unkown (not in docs), probably pixels 
-var radius: int = 10
+var radius: int
 var shape: CircleShape2D
 
 #Sprite vars
 var sprite: AnimatedSprite2D
-var frames: SpriteFrames = preload("res://assets/evil-and-intimidating-bread-frames.tres")
+var frames: SpriteFrames
 
 var path_age_ms: float = 0
 
