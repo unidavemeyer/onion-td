@@ -30,26 +30,10 @@ var frames: SpriteFrames
 var path_age_ms: float = 0
 
 func _init():
-	hp = max_hp
-	
 	#print("enemy_init ran! Whoohoo!")
-	
-	#Sets up collision_shape so this can be detected
-	shape = CircleShape2D.new()
-	shape.set_radius(radius)
-	collision_shape = CollisionShape2D.new()
-	collision_shape.shape = shape
-	add_child(collision_shape)
-	# Sets it as being detectable by towers
-	set_collision_layer_value(Constants.enemy_collision_layer, true)
-	
-	#Sets up the sprite
-	sprite = AnimatedSprite2D.new()
-	sprite.set_sprite_frames(frames)
-	#BB: we're not sure we need pause, but it should prevent animations
-	sprite.pause()
-	sprite.set_animation("idle")
-	add_child(sprite)
+	var_setup()
+	collision_shape_setup()
+	sprite_setup()
 	
 func _ready():
 	update_path()
@@ -77,7 +61,28 @@ func _physics_process(_delta: float):
 			target = path[0]
 			#print(target)
 			moving = true
-	
+
+func collision_shape_setup():
+	shape = CircleShape2D.new()
+	shape.set_radius(radius)
+	collision_shape = CollisionShape2D.new()
+	collision_shape.shape = shape
+	add_child(collision_shape)
+	# Sets it as being detectable by towers
+	set_collision_layer_value(Constants.enemy_collision_layer, true)
+
+func sprite_setup():
+	sprite = AnimatedSprite2D.new()
+	sprite.set_sprite_frames(frames)
+	#BB: we're not sure we need pause, but it should prevent animations
+	sprite.pause()
+	sprite.set_animation("idle")
+	add_child(sprite)
+
+func var_setup():
+	#Anyone who inherets this should define vars in it
+	pass
+
 func take_damage(damage: DamageParams):
 	hp -= damage.hp
 	if hp <= 0:

@@ -1,11 +1,9 @@
 class_name fast_enemy
 extends Enemy
 
-func _init():
+func var_setup():
 	self.speed = 50
 	self.max_hp = 1
+	self.hp = max_hp
 	self.radius = 6
 	self.frames = preload("res://assets/test_cookie.tres")
-	
-	#Running the parent's init
-	super()
