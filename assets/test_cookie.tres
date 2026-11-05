@@ -1,20 +1,20 @@
 [gd_resource type="SpriteFrames" format=3 uid="uid://b585d2jm5nmfl"]
 
-[ext_resource type="Texture2D" uid="uid://opa5mftk5u8h" path="res://assets/test_cookie.png" id="1_7u323"]
+[ext_resource type="Texture2D" uid="uid://c8ga8wh42l873" path="res://assets/test_cooke.png" id="2_5u6fq"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5u6fq"]
-atlas = ExtResource("1_7u323")
+[sub_resource type="AtlasTexture" id="AtlasTexture_7u323"]
+atlas = ExtResource("2_5u6fq")
 region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4iw7n"]
-atlas = ExtResource("1_7u323")
+atlas = ExtResource("2_5u6fq")
 region = Rect2(0, 0, 16, 16)
 
 [resource]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_5u6fq")
+"texture": SubResource("AtlasTexture_7u323")
 }],
 "loop": 1,
 "name": &"death",
