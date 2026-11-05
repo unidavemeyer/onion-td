@@ -54,7 +54,6 @@ func update_path():
 	
 func get_point_path():
 	#BB: should we have a less expensive option?
-	print(path)
 	return path.duplicate()
 
 func disable_tile(tile_position: Vector2i):
