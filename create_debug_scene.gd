@@ -10,6 +10,11 @@ func _ready() -> void:
 	$Towers.add_child(dbg_tower)
 	dbg_tower.move_to($Maps.get_pixel_position(Vector2i(5, 5)))
 	
+	# Creates a soup tower
+	var dbg_tower2: PepperTower = PepperTower.new()
+	$Towers.add_child(dbg_tower2)
+	dbg_tower2.move_to($Maps.get_pixel_position(Vector2i(4, 3)))
+	
 	# Creates a basic enemy
 	var dbg_enemy: Enemy = Enemy.new()
 	$Mobs.add_child(dbg_enemy)
