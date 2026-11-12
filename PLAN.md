@@ -66,6 +66,19 @@
         * life working (end of game)
         * basic UI in place
         * is there anything missing from this list?
+    * Phase 6 work status:
+        * telemetry integrated
+            * what do we track? damage? hp loss? enemy waves? seeds for waves? tower locs?
+            * where do we track this? on device, but provide as log to submit? where/how? email?
+            * can/should we set up enough to "replay" the game that the player did by replaying the log? or is that hard and/or overkill?
+        * do we want to pause/prompt the player for info at points via the game, or just manually?
+        * do we need a save system of some kind for progress, or is that not needed yet?
+        * do we need metagame progression of any kind? permanent upgrades for towers, say?
+        * do we need some kind of sound effects and/or music to be included?
+            * thought: breakfast at tiffany's would be hilarious music, but probably also copyright violation
+        * need to create a release of the game - web? windows? android?
+            * if web, where do we host? but...does that allow for easy telemetry gathering?
+        * what other remaining items/features do we need for playtesting?
     * Skills to try
         * debugging with the Godot debugger
             * need to research how this looks/works
@@ -76,6 +89,26 @@
             * example: breakpoints all over your new code to verify it is behaving
         * profiling with the Godot profiler
             * need to research how this looks/works
+    * Future segment of roadmap planning
+        * save system?
+        * different modes?
+            * survival (waves increasing size/difficulty until dead)
+            * restricted (some tower types disabled)
+            * scored (points for "things" - defeating enemies, saving money, fewer towers, etc.)
+            * campaign?
+        * difficulty levels?
+        * more maps?
+        * more tower types?
+            * consider effects in addition to different damage models
+        * more enemy types?
+            * consider things other than speed+health in the mix
+        * meta progression?
+            * permanent tower upgrades?
+            * permanent enemy debuffs?
+            * unlock new tower types?
+        * more chocolatey enemy movement?
+        * more chocolatey attack visuals?
+        * consider mobile input models?
 
 * Roadmap
     * COMPLETE - Phase 1 - fixed tower, fixed enemy, verify tower attack works, enemies can be damaged
