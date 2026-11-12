@@ -12,7 +12,7 @@ var spawning_delay: float = 0.5
 func _ready():
 	rng.set_seed(42)
 	generate_wave(13)
-	load_wave()
+	summon_wave()
 
 func generate_wave(points: int):
 	while points > 0:
@@ -24,7 +24,7 @@ func generate_wave(points: int):
 			wave.append(enemy.duplicate())
 			points -= enemy.point_cost
 			
-func load_wave():
+func summon_wave():
 	for enemy in wave:
 		get_parent().add_child(enemy)
-		await get_tree().create_timer(0.5).timeout
+		await get_tree().create_timer(spawning_delay).timeout
