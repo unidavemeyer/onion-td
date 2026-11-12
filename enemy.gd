@@ -75,7 +75,7 @@ func collision_shape_setup():
 	# Sets it as being detectable by towers
 	set_collision_layer_value(Constants.enemy_collision_layer, true)
 	# Makes sure enemies don't bump
-	set_collision_mask_value(1, false)
+	set_collision_mask_value(Constants.ground_collision_layer, false)
 
 func sprite_setup():
 	sprite = AnimatedSprite2D.new()
@@ -97,6 +97,7 @@ func take_damage(damage: DamageParams):
 		die()
 
 func die():
+	#BB: do towers target dead enemies?
 	if alive:
 		alive = false
 		collision_shape.queue_free()
