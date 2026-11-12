@@ -7,6 +7,7 @@ var max_hp: int
 #BB: should this be a float?
 var hp: int
 var death_time: float = 1
+var alive: bool = true
 
 #Navigation vars
 var speed: int
@@ -93,14 +94,16 @@ func take_damage(damage: DamageParams):
 		die()
 
 func die():
-	collision_shape.queue_free()
-	sprite.set_animation("death")
-	#BB: can we just stop physics updates?
-	#Now it stops once it dies
-	moving = false
-	path = []
-	await get_tree().create_timer(death_time).timeout
-	queue_free()
+	if alive:
+		alive = false
+		collision_shape.queue_free()
+		sprite.set_animation("death")
+		#BB: can we just stop physics updates?
+		#Now it stops once it dies
+		moving = false
+		path = []
+		await get_tree().create_timer(death_time).timeout
+		queue_free()
 
 func update_path():
 	var nav_grid: NavGrid = Constants.navigation_grid

@@ -1,5 +1,13 @@
 extends Node2D
 
 func _on_murder_pressed():
-	#BB: we may want to iterate over all childen and see which can be murdered
-	$/root/Main/Mobs.get_child(0).take_damage(DamageParams.new(1))
+	murder_all()
+
+func murder_one():
+	$/root/Main/Mobs.get_child(1).take_damage(DamageParams.new(1))
+	
+func murder_all():
+	var children = $/root/Main/Mobs.get_children()
+	for child in children:
+		if child is Enemy:
+			child.take_damage(DamageParams.new(1))
