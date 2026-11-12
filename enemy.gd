@@ -82,6 +82,7 @@ func sprite_setup():
 func var_setup():
 	#Anyone who inherets this should define vars in it
 	#BB: can we make it so you're required to have these?
+	#BB: should hp automatically be set equal to max_hp?
 	pass
 
 func take_damage(damage: DamageParams):
