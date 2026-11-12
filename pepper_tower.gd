@@ -23,7 +23,7 @@ var attack_timer: Timer
 
 """How long the cooldown between attacks should be, in seconds"""
 # BB: Needs balance testing, but that's a later issue
-var attack_cooldown: int = 3
+var attack_cooldown: int = 1
 
 """The DamageParams object we pass to enemies damaged by the tower"""
 var damage_params: DamageParams = DamageParams.new(1)
@@ -33,6 +33,9 @@ var attack_ready: bool = true
 
 """The image for the projectile"""
 var projectile_image: CompressedTexture2D = preload("res://assets/pepper.png")
+
+"""The airtime of the projectiles, in seconds"""
+var projectile_airtime: float = 1.5
 
 func _init() -> void:
 	# Creates a Tower with the specific SpriteFrames.
@@ -91,12 +94,13 @@ func attack(target: Enemy):
 	attack_ready = false
 	
 	# Fire the projectile
-	var projectile = Projectile.new(target, damage_params, projectile_image, Vector2(0, -32))
+	var projectile = Projectile.new(damage_params, projectile_image, projectile_airtime, Vector2(0, -32), 1)
 	add_child(projectile)
+	projectile.fire_at(target.get_predicted_position(projectile_airtime))
 	
 	# Play the attack animation for one second, then return to idle
 	# BB: Later, when I have a real animation, we can use signals from the AnimatedSprite for when the animation finishes
 	sprite.play("attack")
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(0.5).timeout
 	sprite.play("idle")
 	

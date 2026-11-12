@@ -100,3 +100,31 @@ func update_path():
 		await get_tree().create_timer(0.1).timeout
 		update_path()
 	path_age_ms = Time.get_ticks_msec()
+	
+func get_predicted_position(seconds: float):
+	var remaining_time = seconds
+	var segment_start = global_position
+	var segment_target = target
+	var target_index = 0
+	
+	# Keep going until a value is returned
+	while true:
+		# Get the time it'll take to get to the next target, in pixels
+		var segment_length = segment_start.distance_to(segment_target)
+		var time_to_target = segment_length / speed
+		
+		if time_to_target > remaining_time:
+			# Figure out where in the segment you'd be at the given time
+			# NOTE: the type casting exists because Vector2is suck
+			return lerp(segment_start as Vector2, segment_target as Vector2, remaining_time / time_to_target)
+		else:
+			remaining_time -= time_to_target
+			segment_start = segment_target
+			target_index += 1
+			
+			#NOTE: Array indices start at [0] for length 1, and len() returns the raw length, so < is the right call here
+			if target_index < len(path):
+				segment_target = path[target_index]
+			else:
+				# If this is the end of the path, then the segment start is, in fact, the end point for the enemy, and the predicted end position
+				return segment_start

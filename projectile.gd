@@ -1,14 +1,11 @@
 class_name Projectile
 extends CharacterBody2D
 
-"""Projectile speed in pixels / sec"""
-var projectile_speed: float
+"""How long should the projectile be in the air?"""
+var flight_duration: float
 
-"""Direction of the last segment of the arc in degrees"""
-var current_direction: Vector2
-
-"""Enemy that's being fired at"""
-var target: Enemy
+"""Target position to fly at"""
+var target_position: Vector2
 
 """Damage params for when it hits"""
 var damage_params: DamageParams
@@ -16,51 +13,55 @@ var damage_params: DamageParams
 """The Sprite2D for the projectile"""
 var sprite: Sprite2D
 
-"""The upward velocity for the arc. Initial defined value is the starting velocity"""
-var upward_velocity: float
-
-"""The decay on the upward velocity for the arc, subtracted each physics_process"""
-var upward_velocity_decay: float
+"""The Area2D for the projectile"""
+var area: Area2D
 
 """How fast the projectile spins"""
 var rotation_speed: float
 
-func _init(target: Enemy, damage_params: DamageParams, image: CompressedTexture2D, start_position_offset: Vector2, projectile_speed: float = 100, rotation_speed: float = 1, firing_direction: Vector2 = Vector2(0, -1), upwards_starting_velocity: float = -200) -> void:
-	self.projectile_speed = projectile_speed
-	self.current_direction = firing_direction
-	self.target = target
+"""The speed of the projectile in pixels per second."""
+var projectile_speed: float
+
+func _init(damage_params: DamageParams, image: CompressedTexture2D, flight_duration: float, position_offset: Vector2 = Vector2(0, 0), rotation_speed: float = 0) -> void:
 	self.damage_params = damage_params
+	# This is in degrees, as angles generally are in Godot
 	self.rotation_speed = rotation_speed
-	
-	self.upward_velocity = upwards_starting_velocity
-	self.upward_velocity_decay = -upward_velocity * 0.05
-	
-	self.position = start_position_offset
+	# This is in seconds, as time usually is in Godot
+	self.flight_duration = flight_duration
+	self.global_position += position_offset
 	
 	self.sprite = Sprite2D.new()
 	sprite.texture = image
 	add_child(sprite)
+	
+	self.area = Area2D.new()
+	add_child(area)
+	var collision_shape: CollisionShape2D = CollisionShape2D.new()
+	collision_shape.shape = CircleShape2D.new()
+	collision_shape.shape.radius = 5
+	area.add_child(collision_shape)
+	area.set_collision_mask_value(Constants.enemy_collision_layer, true)
+	
+	area.body_entered.connect(check_target)
+
+func fire_at(target_position: Vector2):
+	# This needs to be in world space! If a tower tries to send a target position in local space,
+	# it *might* work, just due to the parent node being at (0, 0) anyway, but it's likely to break things.
+	# So, uh, don't do that.
+	self.target_position = target_position
+	self.projectile_speed = global_position.distance_to(target_position) / flight_duration
 
 func _physics_process(delta: float) -> void:
-	if not is_instance_valid(target):
-		queue_free()
-		return
-	
-	if self.global_position.distance_to(target.global_position) <= target.radius:
-		target.take_damage(damage_params)
-		queue_free()
-		return
-	
-	var target_direction = self.global_position.direction_to(target.global_position)
-	
-	current_direction = lerp(current_direction, target_direction, 0.2).normalized()
-	velocity = current_direction * projectile_speed
-	# NOTE: This is to adjust for the fact that we have a decaying upwards arc and thus we'd otherwise undershoot
-	velocity.x *= 1.2
-	# Decay the upward velocity to make an arc
-	velocity.y = upward_velocity 
-	upward_velocity += upward_velocity_decay
+	self.velocity = global_position.direction_to(target_position) * projectile_speed
 	move_and_slide()
+	
+	# If it's reached the end of the path without hitting an enemy (presumably missed), then delete it
+	if global_position.distance_to(target_position) < 1:
+		queue_free()
 	
 	# Spinny!!
 	rotation += rotation_speed
+	
+func check_target(body):
+	if body is Enemy:
+		body.take_damage(damage_params)
