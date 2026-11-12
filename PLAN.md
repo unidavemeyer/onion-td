@@ -5,66 +5,44 @@
     * Feature branch development style with PR's back to main
 
 * Action steps
-    * finish review
-        * should leave PR in state we're at
-        * we're on test_enemy.gd for reference, looking at update_path and such
-        * covers next three points
-    * Consider solution for scaling everywhere
-        * Possibility: scale camera (view) so factor is applied one place
-        * Possibility: scale images (but has issues with mismatch to bodies, etc.)
-        * Possibility: player controlled zoom (would likely require off-screen indicators for things)
-        * discussed - work comingled with map work
-    * Work on a basic map
-        * should define entries and exits for mobs
-        * also consider how maps add/remove
-        * also consider map features - auto/start towers, say
-        * work in progress on this front, comingled with zoom issues
-    * How do we enforce tower-to-grid behavior?
-        * presumably same grid as pathing for simplicity although not requirement if we have reason to diverge
-        * consider grid coordinate system perhaps?
-            * single mapping system (class? functions?) from grid coords to pixels
-            * store/set tower pos in grid coords instead of pixels?
-        * this is in progress and/or done with the map work
-    * discuss pathing when things change
-        * repath from cur to goal always possible
-        * if nobody can be "sat atop of" then could also do nearest point to get segment
-        * perhaps this is a reasonable point for a signal - on_path_cells_changed or similar
-    * query: should we consider seeking interested parties to provide nicer art?
-        * doing this would be side quest for programming I think
-        * on the other hand, nicer art would provide a better experience - think playtesting
-        * unclear if there are other students that may be interested in volunteering on this
-        * is this worth pursuing, or should we leave this as is and not sweat it?
-        * if we do this, we should also make crystal clear image formats and sizes and such
-        * if we do this, should make clear our licensing and that it works for people
-    * query: should we do anything about sound?
-        * possible resource: https://en.wikipedia.org/wiki/Wikipedia:Free_sound_resources
-        * definitely not something we should spend much time on...but again may help the experience - playtesting
-        * another area of: should we open this to volunteer students? not sure if anyone is in this camp
-        * if we use "found footage" here (resources linked above) will need to be very clear on licensing
-            * ex: can/should we check in to our project, or link to theirs directly? will Godot do that?
-            * ex: if we use their asset, does it impact our licensing?
-    * Consider Phase 1
-        * Once we have map, can set up "real" test of map + tower + mob and prove out these parts
-        * Are we basically done?
-        * Suggest we label/tag/whatever this in git for progress checking/history/etc.
     * Phase 2 enemy work queue:
         * enemy variety - add second enemy type
+            * fast low-health enemy
+            * work on generalizing enemy class
+            * started review on this; continue review on:
+                * fast_enemy.gd.uid
+                * fast_enemy.tscn
+                * nav_grid.gd
+                * test_enemy.tscn
         * wave spawning - add some way to spawn waves of enemies
             * recall this will be where random seeds probably fit -- waves = the run, I think?
+            * some work in process on waves, but not ready for PR yet
     * Phase 2 tower work queue:
         * Create second type of tower
             * fast small damage single target?
             * slow large damage single target?
             * slow large damage area-of-effect at projectile?
             * (plenty of other possibilities)
+        * pepper tower - projectile - single target, fast, small damage
+        * need to do review on this PR
     * Consider Phase 2
         * are we done? If not, what is missing?
+        * mentor view is that we've accomplished what we needed here and a bit over
+        * if agreed, should tag appropriately once both PRs are merged and behavior is confirmed
     * Phase 3 work items:
-        * user placement of towers - UI
+        * user placement of towers - UI to show options, pick what to place
+            * suggest UI is in screen space; could possibly be child of camera so zoom doesn't apply, etc.
+            * can also refactor this later if we decide to provide player-controlled zoom, positioning
         * user placement of towers - mouse input following
-        * user placement of towers - allowed/disallowed cells
+            * suggest basic movement to start, not worrying about snapping or path cells
         * user placement of towers - cell grid snapping
+            * need this to work appropriately with player input -- getting the "feel" of this right may be tricky
+            * suggest tracking cursor pos (raw) and tower pos (snapped) separately, and decide what snap is required for cursor pos
+        * user placement of towers - allowed/disallowed cells
+            * once snap operational, can allow/disallow cells (may happen auto from tower logic if we use move_to)
         * response to tower placement - repathing for enemies
+            * poll of timestamp is reasonable first approach
+            * do not worry about trying to optimize too much on this - do the simple/easy-to-understand thing first
     * Phase 4 work items:
         * currency
             * how do players gain this? defeating enemies? other?
@@ -87,9 +65,20 @@
         * currency working
         * life working (end of game)
         * basic UI in place
+        * is there anything missing from this list?
+    * Skills to try
+        * debugging with the Godot debugger
+            * need to research how this looks/works
+            * stepping in/out/over
+            * breakpoints
+            * examining and changing values in memory
+            * example: something isn't working the way one expects
+            * example: breakpoints all over your new code to verify it is behaving
+        * profiling with the Godot profiler
+            * need to research how this looks/works
 
 * Roadmap
-    * COMPLETE? Phase 1 - fixed tower, fixed enemy, verify tower attack works, enemies can be damaged
+    * COMPLETE - Phase 1 - fixed tower, fixed enemy, verify tower attack works, enemies can be damaged
         * Initial map setup
             * add/remove of child scenes
             * possibly also instantiate
@@ -108,6 +97,66 @@
     * Phase 4 - currency and life
     * Phase 5 - any remaining items for minimum viable product
     * Phase 6 - plan for playtesting (tbd what items ultimately go here)
+
+# Progress 2026-11-05
+
+* Action steps
+    * finish review
+        * should leave PR in state we're at
+        * we're on test_enemy.gd for reference, looking at update_path and such
+        * covers next three points
+        * DONE
+    * Consider solution for scaling everywhere
+        * Possibility: scale camera (view) so factor is applied one place
+        * Possibility: scale images (but has issues with mismatch to bodies, etc.)
+        * Possibility: player controlled zoom (would likely require off-screen indicators for things)
+        * discussed - work comingled with map work
+        * DONE
+    * Work on a basic map
+        * should define entries and exits for mobs
+        * also consider how maps add/remove
+        * also consider map features - auto/start towers, say
+        * work in progress on this front, comingled with zoom issues
+        * DONE
+    * How do we enforce tower-to-grid behavior?
+        * presumably same grid as pathing for simplicity although not requirement if we have reason to diverge
+        * consider grid coordinate system perhaps?
+            * single mapping system (class? functions?) from grid coords to pixels
+            * store/set tower pos in grid coords instead of pixels?
+        * this is in progress and/or done with the map work
+        * DONE
+    * discuss pathing when things change
+        * repath from cur to goal always possible
+        * if nobody can be "sat atop of" then could also do nearest point to get segment
+        * perhaps this is a reasonable point for a signal - on_path_cells_changed or similar
+        * discussed - plan is to have mobs repath when needed from their current position
+    * query: should we consider seeking interested parties to provide nicer art?
+        * doing this would be side quest for programming I think
+        * on the other hand, nicer art would provide a better experience - think playtesting
+        * unclear if there are other students that may be interested in volunteering on this
+        * is this worth pursuing, or should we leave this as is and not sweat it?
+        * if we do this, we should also make crystal clear image formats and sizes and such
+        * if we do this, should make clear our licensing and that it works for people
+        * PROBABLY: do not pursue this idea much further
+    * query: should we do anything about sound?
+        * possible resource: https://en.wikipedia.org/wiki/Wikipedia:Free_sound_resources
+        * definitely not something we should spend much time on...but again may help the experience - playtesting
+        * another area of: should we open this to volunteer students? not sure if anyone is in this camp
+        * if we use "found footage" here (resources linked above) will need to be very clear on licensing
+            * ex: can/should we check in to our project, or link to theirs directly? will Godot do that?
+            * ex: if we use their asset, does it impact our licensing?
+        * may consider doing this - wait until closer to playtest
+    * Evaluation docs
+        * when should we sign these?
+        * do we want to go through these together or individually?
+        * probably should plan to do in the afternoon meeting - probably start 2p to make sure we have time
+        * DONE - signed these in the afternoon session
+    * Consider Phase 1
+        * Once we have map, can set up "real" test of map + tower + mob and prove out these parts
+        * Are we basically done?
+        * Suggest we label/tag/whatever this in git for progress checking/history/etc.
+            * Mentor to get this taken care of after current PR goes through
+        * DONE - tag added to repository
 
 # Progress 2026-10-29
 
