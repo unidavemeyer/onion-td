@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://clnfgmlscfpgy" path="res://dbg_enemy_murderer.gd" id="1_0xm2m"]
 [ext_resource type="Script" uid="uid://6qjyp2xkrvge" path="res://create_debug_scene.gd" id="1_h2yge"]
 [ext_resource type="Script" uid="uid://begjtx5bpl56k" path="res://maps.gd" id="2_lquwl"]
+[ext_resource type="Script" uid="uid://b8swh17ktnyof" path="res://wave_generator.gd" id="4_1bvp3"]
 
 [node name="Main" type="Node2D" unique_id=448929533]
 script = ExtResource("1_h2yge")
@@ -14,6 +15,9 @@ script = ExtResource("2_lquwl")
 
 [node name="Mobs" type="Node2D" parent="." unique_id=504796988]
 script = ExtResource("1_0xm2m")
+
+[node name="Wave_Generator" type="Node2D" parent="Mobs" unique_id=1698398423]
+script = ExtResource("4_1bvp3")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1009667383]
 zoom = Vector2(2, 2)

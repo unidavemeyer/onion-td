@@ -2,11 +2,15 @@ class_name Enemy
 
 extends CharacterBody2D
 
+#Generation vars
+var point_cost: int
+
 #Health vars
 var max_hp: int
 #BB: should this be a float?
 var hp: int
 var death_time: float = 1
+var alive: bool = true
 
 #Navigation vars
 var speed: int
@@ -70,6 +74,8 @@ func collision_shape_setup():
 	add_child(collision_shape)
 	# Sets it as being detectable by towers
 	set_collision_layer_value(Constants.enemy_collision_layer, true)
+	# Makes sure enemies don't bump
+	set_collision_mask_value(Constants.ground_collision_layer, false)
 
 func sprite_setup():
 	sprite = AnimatedSprite2D.new()
@@ -91,14 +97,17 @@ func take_damage(damage: DamageParams):
 		die()
 
 func die():
-	collision_shape.queue_free()
-	sprite.set_animation("death")
-	#BB: can we just stop physics updates?
-	#Now it stops once it dies
-	moving = false
-	path = []
-	await get_tree().create_timer(death_time).timeout
-	queue_free()
+	#BB: do towers target dead enemies?
+	if alive:
+		alive = false
+		collision_shape.queue_free()
+		sprite.set_animation("death")
+		#BB: can we just stop physics updates?
+		#Now it stops once it dies
+		moving = false
+		path = []
+		await get_tree().create_timer(death_time).timeout
+		queue_free()
 
 func update_path():
 	var nav_grid: NavGrid = Constants.navigation_grid

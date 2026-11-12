@@ -11,6 +11,6 @@ func _ready() -> void:
 	dbg_tower.move_to($Maps.get_pixel_position(Vector2i(5, 5)))
 	
 	# Creates a basic enemy
-	var dbg_enemy: Enemy = FastEnemy.new()
-	$Mobs.add_child(dbg_enemy)
-	dbg_enemy.global_position = $Maps.get_pixel_position(Vector2i(0, 0))
+	#var dbg_enemy: Enemy = FastEnemy.new()
+	#$Mobs.add_child(dbg_enemy)
+	#dbg_enemy.global_position = $Maps.get_pixel_position(Vector2i(0, 0))

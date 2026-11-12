@@ -7,3 +7,4 @@ func var_setup():
 	self.hp = max_hp
 	self.radius = 6
 	self.frames = preload("res://assets/test_cookie.tres")
+	self.point_cost = 2
