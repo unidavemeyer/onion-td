@@ -20,9 +20,7 @@ func generate_wave(points: int):
 		if enemy.point_cost <= points:
 			wave.append(enemy.duplicate())
 			points -= enemy.point_cost
-			print(points, enemy.get_class(), enemy.point_cost)
-	print(wave)
-
+			
 func load_wave():
 	for enemy in wave:
 		get_parent().add_child(enemy)
