@@ -2,6 +2,9 @@ class_name Enemy
 
 extends CharacterBody2D
 
+#Generation vars
+var point_cost: int
+
 #Health vars
 var max_hp: int
 #BB: should this be a float?

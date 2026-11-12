@@ -1,4 +1,4 @@
-class_name Wave_Generator
+class_name WaveGenerator
 extends Node2D
 
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
@@ -8,12 +8,19 @@ var enemies: Array[Enemy] = [BreadSlice.new(), FastEnemy.new()]
 
 func _ready():
 	rng.set_seed(42)
-	generate_wave()
+	generate_wave(13)
 	load_wave()
 
-func generate_wave():
-	for i in range(0,5):
-		wave.append(enemies[rng.randi_range(0,1)].duplicate())
+func generate_wave(points: int):
+	while points > 0:
+		var enemy = enemies[rng.randi_range(0, len(enemies)-1)]
+		#BB: if this turns out to be expensive when we have more enemies, perhaps ordering all
+			#enemies in terms of value and having it check one earlier in the list upon a fail
+			#would be more efficient
+		if enemy.point_cost <= points:
+			wave.append(enemy.duplicate())
+			points -= enemy.point_cost
+			print(points, enemy.get_class(), enemy.point_cost)
 	print(wave)
 
 func load_wave():
