@@ -28,6 +28,7 @@ var projectile_x_speed: float
 
 # Math stuff
 var derivative_y_intercept: float
+var arc_coefficient: float
 
 func _init(damage_params: DamageParams, image: CompressedTexture2D, flight_duration: float, position_offset: Vector2 = Vector2.ZERO, rotation_speed: float = 0) -> void:
 	self.damage_params = damage_params
@@ -58,22 +59,27 @@ func fire_at(target_position: Vector2):
 	# So, uh, don't do that.
 	self.target_position = target_position
 	self.relative_target_position = target_position - global_position
+	self.arc_coefficient = 5/(abs(relative_target_position.x) + abs(relative_target_position).y)
 	self.projectile_x_speed = relative_target_position.x / flight_duration
 	
-	self.derivative_y_intercept = (relative_target_position.y / relative_target_position.x) - relative_target_position.x
+	# Dang zero division crashed my computer
+	if relative_target_position.x == 0:
+		relative_target_position.x = 0.0001
+	
+	self.derivative_y_intercept = (relative_target_position.y / relative_target_position.x) - relative_target_position.x * arc_coefficient
 
 func _physics_process(delta: float) -> void:
 	# Parabola shenanigans!
 	# Where we are relative to where we spawned. This can't just use local space and be done, since the position offset exists.
 	var relative_position = position - position_offset
 	# And then we use the derivative of the parabola to get the ideal slope at this x
-	var projectile_slope = 2 * relative_position.x + derivative_y_intercept
+	var projectile_slope = 2 * arc_coefficient * relative_position.x + derivative_y_intercept
 	self.velocity.x = projectile_x_speed
 	self.velocity.y = projectile_slope * projectile_x_speed
 	move_and_slide()
 	
 	# If it's reached the end of the path without hitting an enemy (presumably missed), then delete it
-	if global_position.distance_to(target_position) < 1:
+	if sign(projectile_x_speed) != sign(target_position.x - global_position.x):
 		queue_free()
 	
 	# Spinny!!
