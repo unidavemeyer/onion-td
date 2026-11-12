@@ -58,18 +58,16 @@ func fire_at(target_position: Vector2):
 	# So, uh, don't do that.
 	self.target_position = target_position
 	self.relative_target_position = target_position - global_position
-	self.projectile_x_speed = abs(relative_target_position.x) / flight_duration
+	self.projectile_x_speed = relative_target_position.x / flight_duration
 	
-	self.derivative_y_intercept = (relative_target_position.y / relative_target_position.x) + relative_target_position.x
+	self.derivative_y_intercept = (relative_target_position.y / relative_target_position.x) - relative_target_position.x
 
 func _physics_process(delta: float) -> void:
 	# Parabola shenanigans!
 	# Where we are relative to where we spawned. This can't just use local space and be done, since the position offset exists.
 	var relative_position = position - position_offset
-	print(relative_position)
-	print(relative_target_position)
 	# And then we use the derivative of the parabola to get the ideal slope at this x
-	var projectile_slope = -2 * relative_position.x + derivative_y_intercept
+	var projectile_slope = 2 * relative_position.x + derivative_y_intercept
 	self.velocity.x = projectile_x_speed
 	self.velocity.y = projectile_slope * projectile_x_speed
 	move_and_slide()
