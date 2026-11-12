@@ -4,7 +4,7 @@ extends Node2D
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
 var wave: Array[Enemy] = []
-var enemies: Array[Enemy] = [bread_slice.new(), fast_enemy.new()]
+var enemies: Array[Enemy] = [BreadSlice.new(), FastEnemy.new()]
 
 func _ready():
 	rng.set_seed(42)
