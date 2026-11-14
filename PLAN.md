@@ -14,21 +14,26 @@
                 * fast_enemy.tscn
                 * nav_grid.gd
                 * test_enemy.tscn
+            * DONE - reviewed and in
         * wave spawning - add some way to spawn waves of enemies
             * recall this will be where random seeds probably fit -- waves = the run, I think?
             * some work in process on waves, but not ready for PR yet
+            * have an RNG class available for "ownership" model for this
+            * DONE - reviewed and in
     * Phase 2 tower work queue:
         * Create second type of tower
             * fast small damage single target?
             * slow large damage single target?
             * slow large damage area-of-effect at projectile?
             * (plenty of other possibilities)
-        * pepper tower - projectile - single target, fast, small damage
+        * pepper tower - projectile - single target, fast, small damage, scattershot
         * need to do review on this PR
+        * REVIEW IN PROGRESS - have projectile.gd remaining to review
     * Consider Phase 2
         * are we done? If not, what is missing?
         * mentor view is that we've accomplished what we needed here and a bit over
         * if agreed, should tag appropriately once both PRs are merged and behavior is confirmed
+        * AGREED: same as before, once both PRs are merged, mentor will add a tag to the repo
     * Phase 3 work items:
         * user placement of towers - UI to show options, pick what to place
             * suggest UI is in screen space; could possibly be child of camera so zoom doesn't apply, etc.
@@ -109,6 +114,8 @@
         * more chocolatey enemy movement?
         * more chocolatey attack visuals?
         * consider mobile input models?
+    * Future cleanups
+        * get png and tres names to be more sensible - want them to link more obviously
 
 * Roadmap
     * COMPLETE - Phase 1 - fixed tower, fixed enemy, verify tower attack works, enemies can be damaged
