@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://by6l3y60hfk12"]
+
+[ext_resource type="Texture2D" uid="uid://cac0fdu3pqhdf" path="res://assets/pepper-you-full-of-holes.png" id="1_c4lkb"]
+
+[resource]
+atlas = ExtResource("1_c4lkb")
+region = Rect2(0, 0, 32, 0)

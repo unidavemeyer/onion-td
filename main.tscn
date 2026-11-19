@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://6qjyp2xkrvge" path="res://create_debug_scene.gd" id="1_h2yge"]
 [ext_resource type="Script" uid="uid://begjtx5bpl56k" path="res://maps.gd" id="2_lquwl"]
 [ext_resource type="Script" uid="uid://b8swh17ktnyof" path="res://wave_generator.gd" id="4_1bvp3"]
+[ext_resource type="Script" uid="uid://bp8wk67l44wep" path="res://tower_placement.gd" id="5_lquwl"]
 
 [node name="Main" type="Node2D" unique_id=448929533]
 script = ExtResource("1_h2yge")
@@ -22,13 +23,24 @@ script = ExtResource("4_1bvp3")
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1009667383]
 zoom = Vector2(2, 2)
 
-[node name="Dbg_Murderer" type="Button" parent="Camera2D" unique_id=235389137]
-offset_left = -38.0
-offset_top = -77.0
-offset_right = 37.0
-offset_bottom = -57.0
-theme_override_font_sizes/font_size = 8
+[node name="UserInterface" type="CanvasLayer" parent="." unique_id=478268078]
+layer = 5
+script = ExtResource("5_lquwl")
+
+[node name="Dbg_Murderer" type="Button" parent="UserInterface" unique_id=235389137]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -71.0
+offset_top = -137.0
+offset_right = 71.0
+offset_bottom = -106.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 16
 action_mode = 0
 text = "Attempt Murder?"
 
-[connection signal="pressed" from="Camera2D/Dbg_Murderer" to="Mobs" method="_on_murder_pressed"]
+[connection signal="pressed" from="UserInterface/Dbg_Murderer" to="Mobs" method="_on_murder_pressed"]
