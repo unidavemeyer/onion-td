@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dp5txjxtm4r8e"]
+
+[ext_resource type="Script" uid="uid://b2y56txdlensy" path="res://big_bread.gd" id="1_pqjpy"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=1148517580]
+script = ExtResource("1_pqjpy")

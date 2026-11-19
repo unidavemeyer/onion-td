@@ -1,7 +1,7 @@
 extends Node2D
 
 func _on_murder_pressed():
-	murder(3)
+	murder(-1)
 
 func murder_one():
 	#BB: change to murder_all but with break after taking damage?

@@ -6,5 +6,5 @@ func var_setup():
 	self.max_hp = 4
 	self.hp = max_hp
 	self.radius = 10
-	self.frames = preload("res://assets/evil-and-intimidating-bread-frames.tres")
+	self.frames = preload("res://assets/evil_and_intimidating_bread.tres")
 	self.point_cost = 1
