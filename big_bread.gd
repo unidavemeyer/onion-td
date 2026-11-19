@@ -8,8 +8,7 @@ func var_setup():
 	self.radius = 10
 	self.frames = preload("res://assets/big_bread.tres")
 	self.point_cost = 1
-	print("Big Bread!")
-
+	
 func die():
 	if alive:
 		alive = false
