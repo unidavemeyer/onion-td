@@ -5,30 +5,21 @@
     * Feature branch development style with PR's back to main
 
 * Action steps
-    * Phase 2 enemy work queue:
-        * enemy variety - add second enemy type
-            * fast low-health enemy
-            * work on generalizing enemy class
-            * started review on this; continue review on:
-                * fast_enemy.gd.uid
-                * fast_enemy.tscn
-                * nav_grid.gd
-                * test_enemy.tscn
-        * wave spawning - add some way to spawn waves of enemies
-            * recall this will be where random seeds probably fit -- waves = the run, I think?
-            * some work in process on waves, but not ready for PR yet
+    * Note regarding 1:30p second phase meeting (if that works with lunch)
+        * mentor has 2p meeting
+    * Discussion regarding overriding Godot builtin methods
+        * Sounds like this may actually be a somewhat risky proposition
+        * [https://docs.godotengine.org/en/stable/tutorials/best_practices/godot_interfaces.html#accessing-data-or-logic-from-an-object]
+        * We may experiment with this some if desired, but at present, it sounds better to avoid
     * Phase 2 tower work queue:
-        * Create second type of tower
-            * fast small damage single target?
-            * slow large damage single target?
-            * slow large damage area-of-effect at projectile?
-            * (plenty of other possibilities)
-        * pepper tower - projectile - single target, fast, small damage
+        * pepper tower - projectile - single target, fast, small damage, scattershot
         * need to do review on this PR
+        * REVIEW IN PROGRESS - have projectile.gd remaining to review
     * Consider Phase 2
         * are we done? If not, what is missing?
         * mentor view is that we've accomplished what we needed here and a bit over
         * if agreed, should tag appropriately once both PRs are merged and behavior is confirmed
+        * AGREED: same as before, once both PRs are merged, mentor will add a tag to the repo
     * Phase 3 work items:
         * user placement of towers - UI to show options, pick what to place
             * suggest UI is in screen space; could possibly be child of camera so zoom doesn't apply, etc.
@@ -66,6 +57,19 @@
         * life working (end of game)
         * basic UI in place
         * is there anything missing from this list?
+    * Phase 6 work status:
+        * telemetry integrated
+            * what do we track? damage? hp loss? enemy waves? seeds for waves? tower locs?
+            * where do we track this? on device, but provide as log to submit? where/how? email?
+            * can/should we set up enough to "replay" the game that the player did by replaying the log? or is that hard and/or overkill?
+        * do we want to pause/prompt the player for info at points via the game, or just manually?
+        * do we need a save system of some kind for progress, or is that not needed yet?
+        * do we need metagame progression of any kind? permanent upgrades for towers, say?
+        * do we need some kind of sound effects and/or music to be included?
+            * thought: breakfast at tiffany's would be hilarious music, but probably also copyright violation
+        * need to create a release of the game - web? windows? android?
+            * if web, where do we host? but...does that allow for easy telemetry gathering?
+        * what other remaining items/features do we need for playtesting?
     * Skills to try
         * debugging with the Godot debugger
             * need to research how this looks/works
@@ -76,6 +80,28 @@
             * example: breakpoints all over your new code to verify it is behaving
         * profiling with the Godot profiler
             * need to research how this looks/works
+    * Future segment of roadmap planning
+        * save system?
+        * different modes?
+            * survival (waves increasing size/difficulty until dead)
+            * restricted (some tower types disabled)
+            * scored (points for "things" - defeating enemies, saving money, fewer towers, etc.)
+            * campaign?
+        * difficulty levels?
+        * more maps?
+        * more tower types?
+            * consider effects in addition to different damage models
+        * more enemy types?
+            * consider things other than speed+health in the mix
+        * meta progression?
+            * permanent tower upgrades?
+            * permanent enemy debuffs?
+            * unlock new tower types?
+        * more chocolatey enemy movement?
+        * more chocolatey attack visuals?
+        * consider mobile input models?
+    * Future cleanups
+        * get png and tres names to be more sensible - want them to link more obviously
 
 * Roadmap
     * COMPLETE - Phase 1 - fixed tower, fixed enemy, verify tower attack works, enemies can be damaged
@@ -97,6 +123,34 @@
     * Phase 4 - currency and life
     * Phase 5 - any remaining items for minimum viable product
     * Phase 6 - plan for playtesting (tbd what items ultimately go here)
+
+# Progress 2026-11-12
+
+* Action steps
+    * Phase 2 enemy work queue:
+        * enemy variety - add second enemy type
+            * fast low-health enemy
+            * work on generalizing enemy class
+            * started review on this; continue review on:
+                * fast_enemy.gd.uid
+                * fast_enemy.tscn
+                * nav_grid.gd
+                * test_enemy.tscn
+            * DONE - reviewed and in
+        * wave spawning - add some way to spawn waves of enemies
+            * recall this will be where random seeds probably fit -- waves = the run, I think?
+            * some work in process on waves, but not ready for PR yet
+            * have an RNG class available for "ownership" model for this
+            * DONE - reviewed and in
+    * Phase 2 tower work queue:
+        * Create second type of tower
+            * fast small damage single target?
+            * slow large damage single target?
+            * slow large damage area-of-effect at projectile?
+            * (plenty of other possibilities)
+        * pepper tower - projectile - single target, fast, small damage, scattershot
+        * need to do review on this PR
+        * REVIEW IN PROGRESS - have projectile.gd remaining to review
 
 # Progress 2026-11-05
 
