@@ -74,18 +74,22 @@ func _on_attack_cooldown_reset():
 func _process(delta: float) -> void:
 	# Checks if the attack is ready or not, and if so, checks for targets to use it on
 	if attack_ready:
-		var possible_targets = attack_area.get_overlapping_bodies()
-		for target in possible_targets:
-			# We only care about enemies for the purposes of targeting
-			if not target is Enemy:
-				possible_targets.erase(target)
-		
-		# Don't bother attacking if there are no targets
-		if len(possible_targets) < 1:
-			return
-		else:
-			# Attack a random target within range -- I think this is fun and flavorful for a pepper shaker
-			attack(possible_targets[randi_range(0, len(possible_targets) - 1)])
+		consider_attack()
+
+"""See if there are targets to attack, and if so, attack them."""
+func consider_attack():
+	var possible_targets = attack_area.get_overlapping_bodies()
+	for target in possible_targets:
+		# We only care about enemies for the purposes of targeting
+		if not target is Enemy:
+			possible_targets.erase(target)
+	
+	# Don't bother attacking if there are no targets
+	if len(possible_targets) < 1:
+		return
+	else:
+		# Attack a random target within range -- I think this is fun and flavorful for a pepper shaker
+		attack(possible_targets[randi_range(0, len(possible_targets) - 1)])
 
 """Attack an enemy, dealing damage based on damage_params"""
 func attack(target: Enemy):
@@ -94,11 +98,16 @@ func attack(target: Enemy):
 	attack_ready = false
 	
 	# Fire the projectile
-	var projectile = Projectile.new(damage_params, projectile_image, projectile_airtime, Vector2(0, -32), 1)
+	# BB: We should make different projectiles different classes, and when we do, we may not need as many args.
+	var rotation_speed: float = 90
+	var position_offset: Vector2 = Vector2(0, -32)
+	# BB: Making a child node of the tower for the projectile spawn position could make things easier and remove the position_offset arg.
+	var projectile = Projectile.new(damage_params, projectile_image, projectile_airtime, position_offset, rotation_speed)
+	# BB: Maybe may want to make this a child of the root.
 	add_child(projectile)
 	projectile.fire_at(target.get_predicted_position(projectile_airtime))
 	
-	# Play the attack animation for one second, then return to idle
+	# Play the attack animation, then return to idle
 	# BB: Later, when I have a real animation, we can use signals from the AnimatedSprite for when the animation finishes
 	sprite.play("attack")
 	await get_tree().create_timer(0.5).timeout
