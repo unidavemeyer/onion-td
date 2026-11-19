@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://ryr66onnrypo"]
+
+[ext_resource type="Script" uid="uid://db2xyf358fmfs" path="res://fast_enemy.gd" id="1_qckmv"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=1030694261]
+script = ExtResource("1_qckmv")
