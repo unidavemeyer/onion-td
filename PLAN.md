@@ -5,27 +5,13 @@
     * Feature branch development style with PR's back to main
 
 * Action steps
-    * Phase 2 enemy work queue:
-        * enemy variety - add second enemy type
-            * fast low-health enemy
-            * work on generalizing enemy class
-            * started review on this; continue review on:
-                * fast_enemy.gd.uid
-                * fast_enemy.tscn
-                * nav_grid.gd
-                * test_enemy.tscn
-            * DONE - reviewed and in
-        * wave spawning - add some way to spawn waves of enemies
-            * recall this will be where random seeds probably fit -- waves = the run, I think?
-            * some work in process on waves, but not ready for PR yet
-            * have an RNG class available for "ownership" model for this
-            * DONE - reviewed and in
+    * Note regarding 1:30p second phase meeting (if that works with lunch)
+        * mentor has 2p meeting
+    * Discussion regarding overriding Godot builtin methods
+        * Sounds like this may actually be a somewhat risky proposition
+        * [https://docs.godotengine.org/en/stable/tutorials/best_practices/godot_interfaces.html#accessing-data-or-logic-from-an-object]
+        * We may experiment with this some if desired, but at present, it sounds better to avoid
     * Phase 2 tower work queue:
-        * Create second type of tower
-            * fast small damage single target?
-            * slow large damage single target?
-            * slow large damage area-of-effect at projectile?
-            * (plenty of other possibilities)
         * pepper tower - projectile - single target, fast, small damage, scattershot
         * need to do review on this PR
         * REVIEW IN PROGRESS - have projectile.gd remaining to review
@@ -137,6 +123,34 @@
     * Phase 4 - currency and life
     * Phase 5 - any remaining items for minimum viable product
     * Phase 6 - plan for playtesting (tbd what items ultimately go here)
+
+# Progress 2026-11-12
+
+* Action steps
+    * Phase 2 enemy work queue:
+        * enemy variety - add second enemy type
+            * fast low-health enemy
+            * work on generalizing enemy class
+            * started review on this; continue review on:
+                * fast_enemy.gd.uid
+                * fast_enemy.tscn
+                * nav_grid.gd
+                * test_enemy.tscn
+            * DONE - reviewed and in
+        * wave spawning - add some way to spawn waves of enemies
+            * recall this will be where random seeds probably fit -- waves = the run, I think?
+            * some work in process on waves, but not ready for PR yet
+            * have an RNG class available for "ownership" model for this
+            * DONE - reviewed and in
+    * Phase 2 tower work queue:
+        * Create second type of tower
+            * fast small damage single target?
+            * slow large damage single target?
+            * slow large damage area-of-effect at projectile?
+            * (plenty of other possibilities)
+        * pepper tower - projectile - single target, fast, small damage, scattershot
+        * need to do review on this PR
+        * REVIEW IN PROGRESS - have projectile.gd remaining to review
 
 # Progress 2026-11-05
 
