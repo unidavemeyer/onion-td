@@ -118,6 +118,13 @@ func update_path():
 		await get_tree().create_timer(0.1).timeout
 		update_path()
 	path_age_ms = Time.get_ticks_msec()
+	
+func get_path_tiles():
+	var maps = get_node("/root/Main/Maps")
+	var squares = []
+	for vector in path:
+		squares.append(maps.get_nearest_tile(vector))
+	return squares
 
 func get_predicted_position(seconds: float):
 	var remaining_time = seconds
