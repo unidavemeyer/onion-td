@@ -1,9 +1,6 @@
 class_name SoupTower
 extends Tower
 
-"""The scale of the CollisionShape in pixels"""
-var object_size: Vector2 = Vector2(32, 32)
-
 """The offset of the sprite relative to the hitbox, in pixels"""
 # NOTE: Negative y is up, which is what we need
 var sprite_offset: Vector2 = Vector2(0, -12)
@@ -36,12 +33,10 @@ var damage_params: DamageParams = DamageParams.new(2)
 var attack_ready: bool = true
 
 func _init() -> void:
-	# Creates a Tower with the specific SpriteFrames and size of the tower.
-	# NOTE: Tower size ought to be standard at 32 pixels, but I made it an argument just to be safe
+	# Creates a Tower with the specific SpriteFrames.
 	sprite_frames = preload("res://assets/soup_tower.tres")
-	super(object_size, sprite_frames)
+	super(sprite_frames)
 	
-	# NOTE: This is in object space so that the scaling does not apply weirdly
 	sprite.position += sprite_offset
 	
 	# Creates the attack range of the tower as an Area2D so that we can check for units inside it. This is weirdly complicated to set up for some reason.
